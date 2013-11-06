@@ -1,0 +1,12 @@
+{
+  "name": "Spreedy",
+  "version": "0.1.10",
+  "author": "Kevin Weeks",
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-autoprefixer": "*",
+    "matchdep": "*"
+  }
+}
