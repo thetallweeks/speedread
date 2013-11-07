@@ -1,16 +1,22 @@
 (function($) {
 
-  function wordCount(){
-    var spreedyTextInputValue = $('#spreedyTextInput').val();
-    var words = spreedyTextInputValue.split(' ').length;
-    if(spreedyTextInputValue.length === 0){
-      words = 0;
-    }
-    $('#spreedyWordCount').html(words + ' words');
+  // Set #spreedyTextInput as a variable for reuse
+  var spreedyTextInput = $('#spreedyTextInput');
+
+  function wordCount(inputText) {
+    inputText.on('keyup propertychange paste', function() {
+      var words = spreedyTextInput.val().split(' ').length;
+
+      // Start word count at 0
+      if(spreedyTextInput.val().length === 0){
+        words = 0;
+      }
+
+      // Update word count
+      $('#spreedyWordCount').html(words + ' words');
+    });
   }
 
-  $('#spreedyTextInput').on('keyup propertychange paste', function(){
-      wordCount();
-  });
+  wordCount(spreedyTextInput);
 
 })(jQuery);
