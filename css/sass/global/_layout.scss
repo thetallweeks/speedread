@@ -1,0 +1,18 @@
+.app-bottom,
+.app-top {
+  width: 100%;
+}
+
+.app-bottom {
+  background-color: #1d1d1d;
+  color: #fff;
+  height: 5em;
+  position: fixed;
+  bottom: 0;
+}
+
+.app-top {
+  padding-bottom: 5em;
+  position: relative;
+  height: 100%;
+}

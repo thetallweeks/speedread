@@ -1,9 +1,13 @@
 (function($) {
 
-  // Set #spreedyTextInput as a variable for reuse
+  // Set DOM elements as variables for reuse
   var spreedyTextInput = $('#spreedyTextInput');
+  var spreedyStart = $('#spreedyStart');
+  var spreedyStop = $('#spreedyStop');
+  var spreedyTextInputContainer = $('#spreedyTextInputContainer');
+  var spreedyWordDisplay = $('#spreedyWordDisplay');
 
-  var spreedyButtonStart = $('#spreedyButtonStart');
+  addClass(spreedyWordDisplay, 'is-hidden');
 
   // Set words in the global scope
   var words = [];
@@ -14,8 +18,15 @@
     wordCounter(words);
   });
 
-  spreedyButtonStart.click(function() {
+  spreedyStart.click(function() {
+    removeClass(spreedyWordDisplay, 'is-hidden');
+    addClass(spreedyTextInputContainer, 'is-invisible');
     displayWords(words);
+  });
+
+  spreedyStop.click(function() {
+    addClass(spreedyWordDisplay, 'is-hidden');
+    removeClass(spreedyTextInputContainer, 'is-invisible');
   });
 
   // Creates words array from input text
@@ -50,6 +61,16 @@
       }
 
     }, speed);
+  }
+
+  // Add Class to Element
+  function addClass(elem, className) {
+    elem.addClass(className);
+  }
+
+  // Remove Class from Element
+  function removeClass(elem, className) {
+    elem.removeClass(className);
   }
 
 

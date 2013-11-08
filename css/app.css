@@ -91,6 +91,11 @@ body {
   margin: 0;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 /* ==========================================================================
    Links
    ========================================================================== */
@@ -420,4 +425,145 @@ textarea {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+.app-bottom,
+.app-top {
+  width: 100%;
+}
+
+.app-bottom {
+  background-color: #1d1d1d;
+  color: #fff;
+  height: 5em;
+  position: fixed;
+  bottom: 0;
+}
+
+.app-top {
+  padding-bottom: 5em;
+  position: relative;
+  height: 100%;
+}
+
+body {
+  font-family: "Droid Serif";
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: url("../icons/icomoon.eot");
+  src: url("../icons/icomoon.eot?#iefix") format("embedded-opentype"), url("../icons/icomoon.ttf") format("truetype"), url("../icons/icomoon.woff") format("woff"), url("../icons/icomoon.svg#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class*="icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-size: 2em;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class*="icon-"] span {
+  font-size: 0;
+  line-height: 0;
+}
+
+.icon-cog:before {
+  content: "\e600";
+}
+
+.icon-close:before {
+  content: "\e601";
+}
+
+.icon-brush:before {
+  content: "\e602";
+}
+
+.icon-gauge:before {
+  content: "\e603";
+}
+
+.icon-text-width:before {
+  content: "\e604";
+}
+
+.icon-play:before {
+  content: "\e605";
+}
+
+.icon-pause:before {
+  content: "\e606";
+}
+
+.icon-stop:before {
+  content: "\e607";
+}
+
+.icon-next:before {
+  content: "\e608";
+}
+
+.icon-previous:before {
+  content: "\e609";
+}
+
+.icon-first:before {
+  content: "\e60a";
+}
+
+.icon-last:before {
+  content: "\e60b";
+}
+
+.is-hidden {
+  display: none;
+}
+
+.is-invisible {
+  visibility: hidden;
+}
+
+.spreedy-player-settings {
+  text-align: center;
+}
+
+.spreedy-player,
+.spreedy-settings {
+  display: inline-block;
+}
+
+.setting-item,
+.player-item {
+  display: inline-block;
+  font-size: 1.5em;
+}
+
+.spreedy-settings {
+  float: right;
+}
+
+.text-input {
+  border: none;
+  font-size: 1.25em;
+  padding: 1em;
+  width: 100%;
+}
+
+.word-display {
+  font-size: 8em;
+  position: absolute;
+  top: 50%;
+  margin-top: -1em;
+  text-align: center;
+  width: 100%;
 }
