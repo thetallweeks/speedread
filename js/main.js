@@ -25,6 +25,7 @@
   });
 
   spreedyStop.click(function() {
+    clearInterval(displayWordsInterval);
     addClass(spreedyWordDisplay, 'is-hidden');
     removeClass(spreedyTextInputContainer, 'is-invisible');
   });
@@ -43,15 +44,20 @@
       $('#spreedyWordCount').html(wordCount + ' words');
   }
 
+  // Creates variable in the global scope to use clearInterval in other places
+  var displayWordsInterval;
+
   // Displays words at custom interval
   function displayWords(wordsArray, speed) {
     speed = speed || 300;
     var i = 0;
 
-    var displayWordsInterval = setInterval(function() {
+    displayWordsInterval = setInterval(function() {
 
       // Replace html with subsequent word in the array
-      document.getElementById('spreedyWordDisplay').innerHTML = wordsArray[i++];
+      // This can be done without jQuery using:
+      // document.getElementById('spreedyWordDisplay').innerHTML = wordsArray[i++];
+      spreedyWordDisplay.html(wordsArray[i++]);
 
       // Stop SetInterval when counter = array length
       if(i === wordsArray.length) {
