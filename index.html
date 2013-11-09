@@ -23,17 +23,19 @@
 
         <section class="app-top">
             <!-- Output array of words -->
-            <section id="spreedyWordDisplay" class="word-display"></section>
+            <section id="spreedyWordDisplayContainer" class="word-display-container">
+                <article id="spreedyWordDisplay" class="word-display"></article>
+            </section>
 
             <!-- Input text to speed read -->
-            <section id="spreedyTextInputContainer">
+            <section id="spreedyTextInputContainer" class="text-input-container">
               <textarea name="" id="spreedyTextInput" class="text-input" cols="30" rows="10"></textarea>
-              <div id="spreedyWordCount"></div>
             </section>
         </section>
 
         <!-- Change speed, number of words, etc -->
         <section class="app-bottom spreedy-player-settings">
+            <div id="spreedyWordCount"></div>
             <section id="spreedyPlayer" class="spreedy-player">
                 <div id="spreedyStart" class="player-item icon-play"></div>
                 <div id="spreedyStop" class="player-item icon-stop"></div>

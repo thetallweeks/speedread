@@ -2,12 +2,14 @@
 
   // Set DOM elements as variables for reuse
   var spreedyTextInput = $('#spreedyTextInput');
+  var spreedyTextInputContainer = $('#spreedyTextInputContainer');
+  var spreedyWordDisplayContainer = $('#spreedyWordDisplayContainer');
+  var spreedyWordDisplay = $('#spreedyWordDisplay');
   var spreedyStart = $('#spreedyStart');
   var spreedyStop = $('#spreedyStop');
-  var spreedyTextInputContainer = $('#spreedyTextInputContainer');
-  var spreedyWordDisplay = $('#spreedyWordDisplay');
 
-  addClass(spreedyWordDisplay, 'is-hidden');
+  // Start by hiding Word Display
+  addClass(spreedyWordDisplayContainer, 'is-hidden');
 
   // Set words in the global scope
   var words = [];
@@ -19,14 +21,14 @@
   });
 
   spreedyStart.click(function() {
-    removeClass(spreedyWordDisplay, 'is-hidden');
+    removeClass(spreedyWordDisplayContainer, 'is-hidden');
     addClass(spreedyTextInputContainer, 'is-invisible');
     displayWords(words);
   });
 
   spreedyStop.click(function() {
     clearInterval(displayWordsInterval);
-    addClass(spreedyWordDisplay, 'is-hidden');
+    addClass(spreedyWordDisplayContainer, 'is-hidden');
     removeClass(spreedyTextInputContainer, 'is-invisible');
   });
 

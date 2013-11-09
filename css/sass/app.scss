@@ -2,7 +2,11 @@
 @import "global/layout";
 @import "global/fonts";
 @import "global/icons";
-@import "global/state";
 
 @import "settings";
-@import "input";
+@import "text-input";
+
+@import "word-display";
+
+// Import State last so it overrides other settings
+@import "global/state";
