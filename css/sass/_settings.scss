@@ -1,18 +1,32 @@
-.spreedy-player-settings {
+.setting-item,
+.player-item {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0;
+}
+
+.setting-item {
+  margin-left: 1.25rem;
+}
+
+.setting-item:before {
+  font-size: 1.75rem;
+}
+
+.player-item:before {
+  font-size: 2rem;
+}
+
+.settings-left {
+  padding-left: 1.5em;
+  text-align: left;
+}
+
+.settings-center {
   text-align: center;
 }
 
-.spreedy-player,
-.spreedy-settings {
-  display: inline-block;
-}
-
-.setting-item,
-.player-item {
-  display: inline-block;
-  font-size: 1.5em;
-}
-
-.spreedy-settings {
-  float: right;
+.settings-right {
+  padding-right: 1.5em;
+  text-align: right;
 }

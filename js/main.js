@@ -1,12 +1,12 @@
 (function($) {
 
   // Set DOM elements as variables for reuse
-  var spreedyTextInput = $('#spreedyTextInput');
-  var spreedyTextInputContainer = $('#spreedyTextInputContainer');
-  var spreedyWordDisplayContainer = $('#spreedyWordDisplayContainer');
-  var spreedyWordDisplay = $('#spreedyWordDisplay');
-  var spreedyStart = $('#spreedyStart');
-  var spreedyStop = $('#spreedyStop');
+  var spreedyTextInput = $('#spreedyTextInput'),
+      spreedyTextInputContainer = $('#spreedyTextInputContainer'),
+      spreedyWordDisplayContainer = $('#spreedyWordDisplayContainer'),
+      spreedyWordDisplay = $('#spreedyWordDisplay'),
+      spreedyPlayPause = $('#spreedyPlayPause'),
+      spreedyStop = $('#spreedyStop');
 
   // Start by hiding Word Display
   addClass(spreedyWordDisplayContainer, 'is-hidden');
@@ -20,16 +20,31 @@
     wordCounter(words);
   });
 
-  spreedyStart.click(function() {
-    removeClass(spreedyWordDisplayContainer, 'is-hidden');
-    addClass(spreedyTextInputContainer, 'is-invisible');
-    displayWords(words);
+  var willPlay = true;
+
+  // Start Word Display
+  spreedyPlayPause.click(function() {
+    if(willPlay) {
+      removeClass(spreedyWordDisplayContainer, 'is-hidden');
+      addClass(spreedyTextInputContainer, 'is-hidden');
+      switchClass($(this), 'icon-play', 'icon-pause');
+      displayWords(words);
+      willPlay = false;
+    } else {
+      clearInterval(displayWordsInterval);
+      switchClass($(this), 'icon-pause', 'icon-play');
+      willPlay = true;
+    }
   });
 
+  // Stop Word Display
   spreedyStop.click(function() {
     clearInterval(displayWordsInterval);
     addClass(spreedyWordDisplayContainer, 'is-hidden');
-    removeClass(spreedyTextInputContainer, 'is-invisible');
+    spreedyWordDisplay.empty();
+    removeClass(spreedyTextInputContainer, 'is-hidden');
+    switchClass(spreedyPlayPause, 'icon-pause', 'icon-play');
+    willPlay = true;
   });
 
   // Creates words array from input text
@@ -79,6 +94,12 @@
   // Remove Class from Element
   function removeClass(elem, className) {
     elem.removeClass(className);
+  }
+
+  // Switch classes
+  function switchClass(elem, className1, className2) {
+    elem.removeClass(className1);
+    elem.addClass(className2);
   }
 
 
