@@ -1,72 +1,80 @@
-(function($) {
+var SPREEDY = {
 
-  // Set DOM elements as variables for reuse
-  var spreedyTextInput = $('#spreedyTextInput'),
-      spreedyTextInputContainer = $('#spreedyTextInputContainer'),
-      spreedyWordDisplayContainer = $('#spreedyWordDisplayContainer'),
-      spreedyWordDisplay = $('#spreedyWordDisplay'),
-      spreedyPlayPause = $('#spreedyPlayPause'),
-      spreedyStop = $('#spreedyStop');
+  config : {
 
-  // Start by hiding Word Display
-  addClass(spreedyWordDisplayContainer, 'is-hidden');
+    // Sets default words per minute (in miliseconds)
+    speed : 200
 
-  // Set words in the global scope
-  var words = [];
+  },
 
-  // Watch textarea for changes
-  spreedyTextInput.on('keyup propertychange paste', function() {
-    splitIntoWords(spreedyTextInput);
-    wordCounter(words);
-  });
+  init : function(config) {
 
-  var willPlay = true;
+    // Set DOM elements as variables for reuse
+    SPREEDY.textInput = $('#spreedyTextInput');
+    SPREEDY.textInputContainer = $('#spreedyTextInputContainer');
+    SPREEDY.wordDisplayContainer = $('#spreedyWordDisplayContainer');
+    SPREEDY.wordDisplay = $('#spreedyWordDisplay');
+    SPREEDY.wordCount = $('#spreedyWordCount');
+    SPREEDY.playPauseButton = $('#spreedyPlayPause');
+    SPREEDY.stopButton = $('#spreedyStop');
 
-  // Start Word Display
-  spreedyPlayPause.click(function() {
-    if(willPlay) {
-      removeClass(spreedyWordDisplayContainer, 'is-hidden');
-      addClass(spreedyTextInputContainer, 'is-hidden');
-      switchClass($(this), 'icon-play', 'icon-pause');
-      displayWords(words);
-      willPlay = false;
-    } else {
-      clearInterval(displayWordsInterval);
-      switchClass($(this), 'icon-pause', 'icon-play');
-      willPlay = true;
-    }
-  });
+    // Set the word display to hidden by default
+    SPREEDY.wordDisplayContainer.addClass('is-hidden');
 
-  // Stop Word Display
-  spreedyStop.click(function() {
-    clearInterval(displayWordsInterval);
-    addClass(spreedyWordDisplayContainer, 'is-hidden');
-    spreedyWordDisplay.empty();
-    removeClass(spreedyTextInputContainer, 'is-hidden');
-    switchClass(spreedyPlayPause, 'icon-pause', 'icon-play');
-    willPlay = true;
-  });
+    // Begin watching text input
+    SPREEDY.watch(SPREEDY.textInput);
 
-  // Creates words array from input text
-  function splitIntoWords(inputText) {
-    words = spreedyTextInput.val().trim().split(' ');
-  }
+    var displayWordsInterval;
 
-  // Counts items in the words array and updates word count
-  function wordCounter(wordsArray) {
-      // Start word count at 0
-      var wordCount = wordsArray.length;
+    // Bind click functions
+    SPREEDY.playPauseButton.click(function() {
+        SPREEDY.playPauseButton.removeClass('icon-play').addClass('icon-pause');
+        SPREEDY.displayWords();
 
-      // Update word count
-      $('#spreedyWordCount').html(wordCount + ' words');
-  }
+        // TODO: Set up state for play/pause
+    });
 
-  // Creates variable in the global scope to use clearInterval in other places
-  var displayWordsInterval;
+    SPREEDY.stopButton.click(function() {
+      SPREEDY.stopDisplayWords();
+    });
 
-  // Displays words at custom interval
-  function displayWords(wordsArray, speed) {
-    speed = speed || 300;
+  },
+
+  watch : function(input) {
+
+    // Watch textarea for changes
+    input.on('keyup propertychange paste', function() {
+      SPREEDY.createWords(input);
+      SPREEDY.wordCounter(words);
+    });
+
+  },
+
+  createWords : function(input) {
+
+    // Creates words array from input text
+    words = input.val().trim().split(' ');
+
+  },
+
+  wordCounter : function(array) {
+
+    // Create variable to hold word count
+    var wordCount = array.length;
+
+    // Update word count with new value
+    SPREEDY.wordCount.html(wordCount + ' words');
+
+  },
+
+  displayWords : function() {
+
+    // Show Word Display
+    SPREEDY.wordDisplayContainer.removeClass('is-hidden');
+
+    // Hide Input
+    SPREEDY.textInputContainer.addClass('is-hidden');
+
     var i = 0;
 
     displayWordsInterval = setInterval(function() {
@@ -74,33 +82,31 @@
       // Replace html with subsequent word in the array
       // This can be done without jQuery using:
       // document.getElementById('spreedyWordDisplay').innerHTML = wordsArray[i++];
-      spreedyWordDisplay.html(wordsArray[i++]);
+      SPREEDY.wordDisplay.html(words[i++]);
 
       // Stop SetInterval when counter = array length
-      if(i === wordsArray.length) {
+      if(i === words.length) {
 
         // SetIntervalID is the function name
         clearInterval(displayWordsInterval);
       }
 
-    }, speed);
+    }, SPREEDY.config.speed);
+
+  },
+
+  stopDisplayWords : function() {
+
+    // Prevent display speed from increasing
+    clearInterval(displayWordsInterval);
+
+    SPREEDY.wordDisplayContainer.addClass('is-hidden');
+    SPREEDY.wordDisplay.empty();
+    SPREEDY.textInputContainer.removeClass('is-hidden');
+    SPREEDY.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+
   }
 
-  // Add Class to Element
-  function addClass(elem, className) {
-    elem.addClass(className);
-  }
+};
 
-  // Remove Class from Element
-  function removeClass(elem, className) {
-    elem.removeClass(className);
-  }
-
-  // Switch classes
-  function switchClass(elem, className1, className2) {
-    elem.removeClass(className1);
-    elem.addClass(className2);
-  }
-
-
-})(jQuery);
+$(document).ready(SPREEDY.init);
