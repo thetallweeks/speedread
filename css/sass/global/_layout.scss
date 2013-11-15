@@ -1,31 +1,20 @@
-.app-bottom,
-.app-top {
+.app-top,
+.app-controls,
+.app-bottom {
   width: 100%;
 }
 
 .app-bottom {
-  background-color: #1d1d1d;
-  color: #fff;
-  height: 5em;
+  height: 6.5rem;
   position: fixed;
   bottom: 0;
 }
 
 .app-top {
-  padding-bottom: 5em;
+  padding-bottom: 6.5rem;
   position: relative;
   height: 100%;
 }
-
-.display-table {
-  display: table;
-}
-
-.display-table-cell {
-  display: table-cell;
-  vertical-align: middle;
-}
-
 
 /* Grid HTML Classes */
 .row {
@@ -38,13 +27,15 @@
   *zoom: 1;
 }
 
-.row:before,
-.row:after {
-  content: " ";
-  display: table;
-}
-.row:after {
-  clear: both;
+@mixin clear {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
 }
 
 .row .row {

@@ -1,32 +1,103 @@
-.setting-item,
-.player-item {
+.app-controls {
+    background: linear-gradient(to bottom, #202020 0%,#111 100%);
+    color: #fff;
+    font-size: 0;
+    height: 4rem;
+}
+
+.app-details {
+  background: linear-gradient(to bottom, #181818 0%,#111 100%);
+  border-top: 1px solid #303030;
+  color: #6d6d6d;
+  height: 2.5rem;
+  font-family: Arial;
+  font-size: 1.3rem;
+  line-height: 2.5rem;
+  padding: 0 1rem;
+  text-align: right;
+}
+
+.controls-left,
+.controls-right {
+  @include clear;
+  width: 50%;
+}
+
+.controls-left {
+  float: left;
+}
+
+.controls-right {
+  float: right;
+}
+
+.app-controls-item {
+  border-left: 1px solid #252525;
+  border-right: 1px solid #0f0f0f;
   cursor: pointer;
   display: inline-block;
-  font-size: 0;
+  width: 50%;
+  height: 4rem;
+  line-height: 4rem;
+  position: relative;
+  text-align: center;
+
+  &:hover,
+  &:active,
+  &.is-active {
+    background: linear-gradient(to bottom, #1a1919 0%,#111 100%);
+  }
+
+  @media screen and (min-width: 26em) {
+    padding: 0 4rem;
+    width: auto;
+  }
 }
 
-.setting-item {
-  margin-left: 1.25rem;
+.app-controls-item-left {
+  float: left;
 }
 
-.setting-item:before {
+.app-controls-item-right {
+  float: right;
+}
+
+@media screen and (min-width: 26em) {
+  .app-controls-item-left-edge:after,
+  .app-controls-item-right-edge:after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+  .app-controls-item-left-edge:after {
+    border-right: 1px solid #252525;
+    right: -2px;
+  }
+  .app-controls-item-right-edge:after {
+    border-left: 1px solid #0f0f0f;
+    left: -2px;
+  }
+}
+
+.app-controls-item:before {
   font-size: 1.75rem;
 }
 
-.player-item:before {
-  font-size: 2rem;
-}
-
-.settings-left {
-  padding-left: 1.5em;
+.app-controls-menu {
+  background-color: #1a1919;
+  font-family: "Droid Serif";
+  font-size: 1.4rem;
+  width: 22rem;
+  position: absolute;
+  bottom: 4rem;
+  right: -1px; // Adjusts for the button border
+  padding: 1rem;
   text-align: left;
 }
 
-.settings-center {
-  text-align: center;
-}
-
-.settings-right {
-  padding-right: 1.5em;
-  text-align: right;
+.app-controls-menu-input {
+  font-family: Arial;
+  margin-left: .5rem;
+  max-width: 5.5rem;
 }

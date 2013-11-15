@@ -24,11 +24,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class*="icon-"] span {
-  font-size: 0;
-  line-height: 0;
-}
-
 .icon-cog:before {
   content: "\e600";
 }

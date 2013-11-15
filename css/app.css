@@ -81,6 +81,7 @@ html {
   /* 2 */
   -webkit-text-size-adjust: 100%;
   /* 2 */
+  font-size: 62.5%;
 }
 
 /**
@@ -427,32 +428,28 @@ table {
   border-spacing: 0;
 }
 
-.app-bottom,
-.app-top {
+.hide-text {
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+}
+
+.app-top,
+.app-controls,
+.app-bottom {
   width: 100%;
 }
 
 .app-bottom {
-  background-color: #1d1d1d;
-  color: #fff;
-  height: 5em;
+  height: 6.5rem;
   position: fixed;
   bottom: 0;
 }
 
 .app-top {
-  padding-bottom: 5em;
+  padding-bottom: 6.5rem;
   position: relative;
   height: 100%;
-}
-
-.display-table {
-  display: table;
-}
-
-.display-table-cell {
-  display: table-cell;
-  vertical-align: middle;
 }
 
 /* Grid HTML Classes */
@@ -465,16 +462,6 @@ table {
   margin-bottom: 0;
   max-width: 62.5em;
   *zoom: 1;
-}
-
-.row:before,
-.row:after {
-  content: " ";
-  display: table;
-}
-
-.row:after {
-  clear: both;
 }
 
 .row .row {
@@ -671,11 +658,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class*="icon-"] span {
-  font-size: 0;
-  line-height: 0;
-}
-
 .icon-cog:before {
   content: "\e600";
 }
@@ -724,37 +706,127 @@ body {
   content: "\e60b";
 }
 
-.setting-item,
-.player-item {
+.app-controls {
+  background: -webkit-linear-gradient(top, #202020 0%, #111111 100%);
+  background: linear-gradient(to bottom, #202020 0%, #111111 100%);
+  color: #fff;
+  font-size: 0;
+  height: 4rem;
+}
+
+.app-details {
+  background: -webkit-linear-gradient(top, #181818 0%, #111111 100%);
+  background: linear-gradient(to bottom, #181818 0%, #111111 100%);
+  border-top: 1px solid #303030;
+  color: #6d6d6d;
+  height: 2.5rem;
+  font-family: Arial;
+  font-size: 1.3rem;
+  line-height: 2.5rem;
+  padding: 0 1rem;
+  text-align: right;
+}
+
+.controls-left,
+.controls-right {
+  width: 50%;
+}
+
+.controls-left:before,
+.controls-left:after,
+.controls-right:before,
+.controls-right:after {
+  content: " ";
+  display: table;
+}
+
+.controls-left:after,
+.controls-right:after {
+  clear: both;
+}
+
+.controls-left {
+  float: left;
+}
+
+.controls-right {
+  float: right;
+}
+
+.app-controls-item {
+  border-left: 1px solid #252525;
+  border-right: 1px solid #0f0f0f;
   cursor: pointer;
   display: inline-block;
-  font-size: 0;
-}
-
-.setting-item {
-  margin-left: 1.25rem;
-}
-
-.setting-item:before {
-  font-size: 1.75rem;
-}
-
-.player-item:before {
-  font-size: 2rem;
-}
-
-.settings-left {
-  padding-left: 1.5em;
-  text-align: left;
-}
-
-.settings-center {
+  width: 50%;
+  height: 4rem;
+  line-height: 4rem;
+  position: relative;
   text-align: center;
 }
 
-.settings-right {
-  padding-right: 1.5em;
-  text-align: right;
+.app-controls-item:hover,
+.app-controls-item:active,
+.app-controls-item.is-active {
+  background: -webkit-linear-gradient(top, #1a1919 0%, #111111 100%);
+  background: linear-gradient(to bottom, #1a1919 0%, #111111 100%);
+}
+
+@media screen and (min-width: 26em) {
+  .app-controls-item {
+    padding: 0 4rem;
+    width: auto;
+  }
+}
+
+.app-controls-item-left {
+  float: left;
+}
+
+.app-controls-item-right {
+  float: right;
+}
+
+@media screen and (min-width: 26em) {
+  .app-controls-item-left-edge:after,
+  .app-controls-item-right-edge:after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+
+  .app-controls-item-left-edge:after {
+    border-right: 1px solid #252525;
+    right: -2px;
+  }
+
+  .app-controls-item-right-edge:after {
+    border-left: 1px solid #0f0f0f;
+    left: -2px;
+  }
+}
+
+.app-controls-item:before {
+  font-size: 1.75rem;
+}
+
+.app-controls-menu {
+  background-color: #1a1919;
+  font-family: "Droid Serif";
+  font-size: 1.4rem;
+  width: 22rem;
+  position: absolute;
+  bottom: 4rem;
+  right: -1px;
+  padding: 1rem;
+  text-align: left;
+}
+
+.app-controls-menu-input {
+  font-family: Arial;
+  margin-left: .5rem;
+  max-width: 5.5rem;
 }
 
 .text-input-container {
@@ -763,8 +835,8 @@ body {
 
 .text-input {
   border: none;
-  font-size: 1.25em;
-  padding: 1em;
+  font-size: 2.5rem;
+  padding: 1.5rem;
   width: 100%;
   height: 100%;
 }

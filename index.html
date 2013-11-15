@@ -29,32 +29,40 @@
 
             <!-- Input text to speed read -->
             <section id="spreedyTextInputContainer" class="text-input-container">
-              <textarea name="" id="spreedyTextInput" class="text-input" placeholder="Type or Paste some text to sped read"></textarea>
+              <textarea name="" id="spreedyTextInput" class="text-input" placeholder="Type or paste some text to speed read"></textarea>
             </section>
         </section>
 
         <!-- Change speed, number of words, etc -->
-        <section class="app-bottom spreedy-player-settings display-table">
-            <section id="spreedyWordCount" class="settings-left display-table-cell small-4">0 words</section>
+        <section class="app-bottom">
+            <section class="app-controls">
+                <div class="controls-left">
+                    <div id="spreedyPlayPause" class="app-controls-item app-controls-item-left icon-play">
+                        <span class="hide-text">Play</span>
+                    </div>
+                    <div id="spreedyStop" class="app-controls-item app-controls-item-left app-controls-item-left-edge icon-stop">
+                        <span class="hide-text">Stop</span>
+                    </div>
+                </div>
+                <div class="controls-right">
+                    <div class="app-controls-item app-controls-item-right icon-text-width">
+                        <span class="hide-text">Font Settings</span>
+                    </div>
 
-            <section id="spreedyPlayer" class="settings-center display-table-cell small-4">
-                <div id="spreedyPlayPause" class="player-item icon-play"></div>
-                <div id="spreedyStop" class="player-item icon-stop"></div>
+                    <div id="spreedySpeedSettings" class="app-controls-item app-controls-item-right app-controls-item-right-edge icon-gauge">
+                        <span class="hide-text">Words Per Minute</span>
+                        <div id="spreedySpeedSettingsMenu" class="app-controls-menu">
+                            <div class="app-controls-menu-item">
+                                <span>Words per Minute</span>
+                                <input id="spreedySpeedInput" class="app-controls-menu-input" id="" type="number" min="60" max="3000" step="1" value="300" size="5" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
-
-            <section id="spreedySettings" class="settings-right display-table-cell small-4">
-                <div class="setting-item icon-gauge">
-                    <span>Words Per Minute</span>
-                </div>
-                <div class="setting-item icon-text-width">
-                    <span>Change Font</span>
-                </div>
-                <div class="setting-item icon-brush">
-                    <span>Background Color</span>
-                </div>
-            </section>
-
+            <section class="app-details"><span id="spreedyWordCount">0</span> words at <span id="spreedySpeed">300</span> words per minute</section>
         </section>
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
