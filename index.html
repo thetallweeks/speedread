@@ -10,8 +10,7 @@
         <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
 
         <!-- Google Web Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=PT+Serif|Droid+Serif' rel='stylesheet' type='text/css'>
-
+        <link href='http://fonts.googleapis.com/css?family=Lora:400|Montserrat:400|Sanchez:400|Poly:400|PT+Serif|Roboto' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
@@ -45,8 +44,20 @@
                     </div>
                 </div>
                 <div class="controls-right">
-                    <div class="app-controls-item app-controls-item-right icon-text-width">
+                    <div id="spreedyFontSettings" class="app-controls-item app-controls-item-right icon-font-settings">
                         <span class="hide-text">Font Settings</span>
+                        <div id="spreedyFontSettingsMenu" class="app-controls-menu">
+                            <div class="app-controls-menu-item">
+                                <div id="spreedyFontOptions" class="">
+                                    <div id="lora" class="font-option lora is-active">Lora</div>
+                                    <div id="montserrat" class="font-option montserrat">Montserrat</div>
+                                    <div id="sanchez" class="font-option sanchez">Sanchez</div>
+                                    <div id="poly" class="font-option poly">Poly</div>
+                                    <div id="pt-serif" class="font-option pt-serif">PT Serif</div>
+                                    <div id="roboto" class="font-option roboto">Roboto</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div id="spreedySpeedSettings" class="app-controls-item app-controls-item-right app-controls-item-right-edge icon-gauge">

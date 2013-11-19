@@ -45,7 +45,7 @@
   &:hover,
   &:active,
   &.is-active {
-    background: linear-gradient(to bottom, #1a1919 0%,#111 100%);
+    background: #1a1919;
   }
 
   @media screen and (min-width: 26em) {
@@ -86,7 +86,7 @@
 
 .app-controls-menu {
   background-color: #1a1919;
-  font-family: "Droid Serif";
+  font-family: $serif;
   font-size: 1.4rem;
   width: 22rem;
   position: absolute;
@@ -100,4 +100,21 @@
   font-family: Arial;
   margin-left: .5rem;
   max-width: 5.5rem;
+}
+
+// Font Options
+.font-option {
+  font-size: 1.8rem;
+  line-height: 1;
+  padding: 1rem;
+
+  &:hover,
+  &:active {
+    background-color: #272727;
+    cursor: pointer;
+  }
+}
+
+.font-option.is-active {
+  background-color: #303030;
 }
