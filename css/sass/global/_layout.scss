@@ -1,3 +1,5 @@
+$app-bottom-height: 6.5rem;
+
 .app-top,
 .app-controls,
 .app-bottom {
@@ -5,13 +7,13 @@
 }
 
 .app-bottom {
-  height: 6.5rem;
+  height: $app-bottom-height;
   position: fixed;
   bottom: 0;
 }
 
 .app-top {
-  padding-bottom: 6.5rem;
+  padding-bottom: $app-bottom-height;
   position: relative;
   height: 100%;
 }

@@ -461,6 +461,7 @@ table {
   font: 0/0 a;
   text-shadow: none;
   color: transparent;
+  position: absolute;
 }
 
 .app-top,
@@ -739,7 +740,6 @@ table {
   background: -webkit-linear-gradient(top, #202020 0%, #111111 100%);
   background: linear-gradient(to bottom, #202020 0%, #111111 100%);
   color: #fff;
-  font-size: 0;
   height: 4rem;
 }
 
@@ -800,7 +800,7 @@ table {
   background: #1a1919;
 }
 
-@media screen and (min-width: 26em) {
+@media screen and (min-width: 30em) {
   .app-controls-item {
     padding: 0 4rem;
     width: auto;
@@ -815,7 +815,7 @@ table {
   float: right;
 }
 
-@media screen and (min-width: 26em) {
+@media screen and (min-width: 30em) {
   .app-controls-item-left-edge:after,
   .app-controls-item-right-edge:after {
     content: " ";
@@ -873,6 +873,30 @@ table {
   background-color: #303030;
 }
 
+@media screen and (min-width: 37.5em) {
+  .app-top {
+    padding-bottom: 9.75rem;
+  }
+
+  .app-bottom {
+    height: 9.75rem;
+  }
+
+  .app-controls,
+  .app-controls-item {
+    height: 6rem;
+  }
+
+  .app-controls-item {
+    line-height: 6rem;
+  }
+
+  .app-details {
+    height: 3.75rem;
+    line-height: 3.75rem;
+  }
+}
+
 .text-input-container {
   height: 100%;
 }
@@ -893,9 +917,27 @@ table {
 
 .word-display {
   display: table-cell;
-  font-size: 8em;
+  font-size: 3.5rem;
   text-align: center;
   vertical-align: middle;
+}
+
+@media screen and (min-width: 30em) {
+  .word-display {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (min-width: 37.5em) {
+  .word-display {
+    font-size: 6rem;
+  }
+}
+
+@media screen and (min-width: 45em) {
+  .word-display {
+    font-size: 8rem;
+  }
 }
 
 .is-hidden {

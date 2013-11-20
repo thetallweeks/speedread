@@ -1,7 +1,6 @@
 .app-controls {
     background: linear-gradient(to bottom, #202020 0%,#111 100%);
     color: #fff;
-    font-size: 0;
     height: 4rem;
 }
 
@@ -48,7 +47,7 @@
     background: #1a1919;
   }
 
-  @media screen and (min-width: 26em) {
+  @media screen and (min-width: $break-small) {
     padding: 0 4rem;
     width: auto;
   }
@@ -62,7 +61,7 @@
   float: right;
 }
 
-@media screen and (min-width: 26em) {
+@media screen and (min-width: $break-small) {
   .app-controls-item-left-edge:after,
   .app-controls-item-right-edge:after {
     content: " ";
@@ -117,4 +116,28 @@
 
 .font-option.is-active {
   background-color: #303030;
+}
+
+@media screen and (min-width: $break-medium) {
+  .app-top {
+    padding-bottom: $app-bottom-height * 1.5;
+  }
+
+  .app-bottom {
+    height: $app-bottom-height * 1.5;
+  }
+
+  .app-controls,
+  .app-controls-item {
+    height: 4rem * 1.5;
+  }
+
+  .app-controls-item {
+    line-height: 4rem * 1.5;
+  }
+
+  .app-details {
+    height: 2.5rem * 1.5;
+    line-height: 2.5rem * 1.5;
+  }
 }
