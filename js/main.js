@@ -210,7 +210,7 @@ var SPREEDY = {
     (function timer() {
       SPREEDY.wordDisplay.html(words[i]);
       i++;
-      if (i === j - 1) {
+      if (i === j) {
         SPREEDY.resetDisplayWords();
       } else if (i < j) {
         placeholder++;
