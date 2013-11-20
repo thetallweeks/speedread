@@ -1,4 +1,4 @@
-spreedy
+Speed Read
 =======
 
-A speed reading web app
+A speed reading web app :)

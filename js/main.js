@@ -1,4 +1,4 @@
-var SPREEDY = {
+var SPEEDREAD = {
 
   config : {
 
@@ -12,15 +12,15 @@ var SPREEDY = {
 
   init : function(config) {
 
-    SPREEDY.createUIVariables();
+    SPEEDREAD.createUIVariables();
 
-    SPREEDY.bindUI();
+    SPEEDREAD.bindUI();
 
     // Begin watching Speed Setting Input
-    SPREEDY.watchSpeedSetting(SPREEDY.speedInput);
+    SPEEDREAD.watchSpeedSetting(SPEEDREAD.speedInput);
 
     // Begin watching text input
-    SPREEDY.watchTextArea(SPREEDY.textInput);
+    SPEEDREAD.watchTextArea(SPEEDREAD.textInput);
 
     words = [];
 
@@ -32,31 +32,31 @@ var SPREEDY = {
     isPlaying = false;
 
     // Set the default font
-    SPREEDY.chooseFont();
+    SPEEDREAD.chooseFont();
 
   },
 
   createUIVariables : function() {
     // Set DOM elements as variables for reuse
-    SPREEDY.textInput = $('#spreedyTextInput');
-    SPREEDY.textInputContainer = $('#spreedyTextInputContainer');
-    SPREEDY.wordDisplayContainer = $('#spreedyWordDisplayContainer');
-    SPREEDY.wordDisplay = $('#spreedyWordDisplay');
-    SPREEDY.wordCount = $('#spreedyWordCount');
-    SPREEDY.playPauseButton = $('#spreedyPlayPause');
-    SPREEDY.stopButton = $('#spreedyStop');
-    SPREEDY.popupButtons = $('.app-controls-menu-container');
-    SPREEDY.popupMenus = $('.app-controls-menu');
+    SPEEDREAD.textInput = $('#speedReadTextInput');
+    SPEEDREAD.textInputContainer = $('#speedReadTextInputContainer');
+    SPEEDREAD.wordDisplayContainer = $('#speedReadWordDisplayContainer');
+    SPEEDREAD.wordDisplay = $('#speedReadWordDisplay');
+    SPEEDREAD.wordCount = $('#speedReadWordCount');
+    SPEEDREAD.playPauseButton = $('#speedReadPlayPause');
+    SPEEDREAD.stopButton = $('#speedReadStop');
+    SPEEDREAD.popupButtons = $('.app-controls-menu-container');
+    SPEEDREAD.popupMenus = $('.app-controls-menu');
 
     // Speed Settings
-    SPREEDY.speedSettings = $('#spreedySpeedSettings');
-    SPREEDY.speedSettingsMenu = $('#spreedySpeedSettingsMenu');
-    SPREEDY.speedInput = $('#spreedySpeedInput');
-    SPREEDY.speed = $('#spreedySpeed');
+    SPEEDREAD.speedSettings = $('#speedReadSpeedSettings');
+    SPEEDREAD.speedSettingsMenu = $('#speedReadSpeedSettingsMenu');
+    SPEEDREAD.speedInput = $('#speedReadSpeedInput');
+    SPEEDREAD.speed = $('#speedReadSpeed');
 
     // Font Settings
-    SPREEDY.fontSettings = $('#spreedyFontSettings');
-    SPREEDY.fontSettingsMenu = $('#spreedyFontSettingsMenu');
+    SPEEDREAD.fontSettings = $('#speedReadFontSettings');
+    SPEEDREAD.fontSettingsMenu = $('#speedReadFontSettingsMenu');
 
   },
 
@@ -64,41 +64,41 @@ var SPREEDY = {
 
     // Hide menus when clicking off of target
     $('html').click(function() {
-      SPREEDY.popupMenus.addClass('is-hidden');
-      SPREEDY.speedSettings.removeClass('is-active');
-      SPREEDY.fontSettings.removeClass('is-active');
+      SPEEDREAD.popupMenus.addClass('is-hidden');
+      SPEEDREAD.speedSettings.removeClass('is-active');
+      SPEEDREAD.fontSettings.removeClass('is-active');
     });
 
     // Set the word display to hidden by default
-    SPREEDY.wordDisplayContainer.addClass('is-hidden');
+    SPEEDREAD.wordDisplayContainer.addClass('is-hidden');
 
     // Hide Speed Settings popup
-    SPREEDY.popupMenus.addClass('is-hidden');
+    SPEEDREAD.popupMenus.addClass('is-hidden');
 
     // Bind click function for play/pause
-    SPREEDY.playPauseButton.click(function() {
+    SPEEDREAD.playPauseButton.click(function() {
       if(words.length > 0) {
         if(!isPlaying) {
-          SPREEDY.play();
+          SPEEDREAD.play();
         } else {
-          SPREEDY.pause();
+          SPEEDREAD.pause();
         }
       }
     });
 
     // Bind click function for Stop
-    SPREEDY.stopButton.click(function() {
+    SPEEDREAD.stopButton.click(function() {
       if(words.length > 0) {
-        SPREEDY.stopDisplayWords();
+        SPEEDREAD.stopDisplayWords();
       }
     });
 
     // Bind click for Speed Settings
-    SPREEDY.popupButtons.click(function() {
-      SPREEDY.popup();
+    SPEEDREAD.popupButtons.click(function() {
+      SPEEDREAD.popup();
     });
 
-    SPREEDY.popupMenus.click(function() {
+    SPEEDREAD.popupMenus.click(function() {
       event.stopPropagation();
     });
 
@@ -108,8 +108,8 @@ var SPREEDY = {
 
     // Watch textarea for changes
     input.on('keyup propertychange paste', function() {
-      SPREEDY.createWords(input);
-      SPREEDY.wordCounter(words);
+      SPEEDREAD.createWords(input);
+      SPEEDREAD.wordCounter(words);
     });
 
   },
@@ -127,7 +127,7 @@ var SPREEDY = {
     var wordCount = array.length;
 
     // Update word count with new value
-    SPREEDY.wordCount.html(wordCount);
+    SPEEDREAD.wordCount.html(wordCount);
 
   },
 
@@ -141,65 +141,65 @@ var SPREEDY = {
       target.removeClass('is-active');
       target.find('.app-controls-menu').addClass('is-hidden');
     } else {
-      SPREEDY.popupMenus.addClass('is-hidden');
-      SPREEDY.popupButtons.removeClass('is-active');
+      SPEEDREAD.popupMenus.addClass('is-hidden');
+      SPEEDREAD.popupButtons.removeClass('is-active');
       target.addClass('is-active');
       target.find('.app-controls-menu').removeClass('is-hidden');
     }
   },
 
   clearPopup : function() {
-    SPREEDY.popupButtons.removeClass('is-active');
-    SPREEDY.popupMenus.addClass('is-hidden');
+    SPEEDREAD.popupButtons.removeClass('is-active');
+    SPEEDREAD.popupMenus.addClass('is-hidden');
   },
 
   watchSpeedSetting : function(input) {
 
     // Set new Speed value
     input.on('keyup propertychange paste', function() {
-      SPREEDY.setSpeed();
+      SPEEDREAD.setSpeed();
     });
   },
 
   setSpeed : function() {
 
-    SPREEDY.config.speed = SPREEDY.speedInput.val();
+    SPEEDREAD.config.speed = SPEEDREAD.speedInput.val();
 
     // Update Speed display
-    SPREEDY.speed.html(SPREEDY.config.speed);
+    SPEEDREAD.speed.html(SPEEDREAD.config.speed);
 
   },
 
   chooseFont : function() {
-    SPREEDY.setFont();
-    SPREEDY.fontSettingsMenu.find('.font-option').click(function() {
-      SPREEDY.fontSettingsMenu.find('.font-option').removeClass('is-active');
+    SPEEDREAD.setFont();
+    SPEEDREAD.fontSettingsMenu.find('.font-option').click(function() {
+      SPEEDREAD.fontSettingsMenu.find('.font-option').removeClass('is-active');
 
       // Don't create a jQuery object here
-      SPREEDY.config.font = event.target.id;
+      SPEEDREAD.config.font = event.target.id;
 
       // Use the jQuery object form of event.target to addClass
       $(event.target).addClass('is-active');
-      SPREEDY.removeFontClass();
-      SPREEDY.setFont();
+      SPEEDREAD.removeFontClass();
+      SPEEDREAD.setFont();
     });
   },
 
   removeFontClass : function() {
-    SPREEDY.wordDisplay.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
+    SPEEDREAD.wordDisplay.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
   },
 
   setFont : function() {
-    SPREEDY.wordDisplay.addClass(SPREEDY.config.font);
+    SPEEDREAD.wordDisplay.addClass(SPEEDREAD.config.font);
   },
 
   displayWords : function(speed) {
 
     // Show Word Display
-    SPREEDY.wordDisplayContainer.removeClass('is-hidden');
+    SPEEDREAD.wordDisplayContainer.removeClass('is-hidden');
 
     // Hide Input
-    SPREEDY.textInputContainer.addClass('is-hidden');
+    SPEEDREAD.textInputContainer.addClass('is-hidden');
 
     // Convert speed to ms
     var speedInMS = (1 / (speed / 60)) * 1000;
@@ -208,10 +208,10 @@ var SPREEDY = {
         j = words.length;
 
     (function timer() {
-      SPREEDY.wordDisplay.html(words[i]);
+      SPEEDREAD.wordDisplay.html(words[i]);
       i++;
       if (i === j) {
-        SPREEDY.resetDisplayWords();
+        SPEEDREAD.resetDisplayWords();
       } else if (i < j) {
         placeholder++;
         interval = setTimeout(timer,speedInMS);
@@ -224,7 +224,7 @@ var SPREEDY = {
     isPlaying = false;
     clearTimeout(interval);
     placeholder = 0;
-    SPREEDY.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    SPEEDREAD.playPauseButton.removeClass('icon-pause').addClass('icon-play');
   },
 
   stopDisplayWords : function() {
@@ -233,24 +233,24 @@ var SPREEDY = {
     clearTimeout(interval);
     placeholder = 0;
     isPlaying = false;
-    SPREEDY.wordDisplayContainer.addClass('is-hidden');
-    SPREEDY.wordDisplay.empty();
-    SPREEDY.textInputContainer.removeClass('is-hidden');
-    SPREEDY.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    SPEEDREAD.wordDisplayContainer.addClass('is-hidden');
+    SPEEDREAD.wordDisplay.empty();
+    SPEEDREAD.textInputContainer.removeClass('is-hidden');
+    SPEEDREAD.playPauseButton.removeClass('icon-pause').addClass('icon-play');
   },
 
   play : function() {
-    SPREEDY.playPauseButton.removeClass('icon-play').addClass('icon-pause');
-    SPREEDY.displayWords(SPREEDY.config.speed);
+    SPEEDREAD.playPauseButton.removeClass('icon-play').addClass('icon-pause');
+    SPEEDREAD.displayWords(SPEEDREAD.config.speed);
     isPlaying = true;
   },
 
   pause : function() {
-    SPREEDY.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    SPEEDREAD.playPauseButton.removeClass('icon-pause').addClass('icon-play');
     clearTimeout(interval);
     isPlaying = false;
   }
 
 };
 
-$(document).ready(SPREEDY.init);
+$(document).ready(SPEEDREAD.init);
