@@ -471,15 +471,25 @@ table {
 }
 
 .app-bottom {
-  height: 6.5rem;
+  height: 9rem;
   position: fixed;
   bottom: 0;
 }
 
 .app-top {
-  padding-bottom: 6.5rem;
+  padding-bottom: 9rem;
   position: relative;
   height: 100%;
+}
+
+@media screen and (min-width: 37.5em) {
+  .app-top {
+    padding-bottom: 11.25rem;
+  }
+
+  .app-bottom {
+    height: 11.25rem;
+  }
 }
 
 /* Grid HTML Classes */
@@ -740,7 +750,7 @@ table {
   background: -webkit-linear-gradient(top, #202020 0%, #111111 100%);
   background: linear-gradient(to bottom, #202020 0%, #111111 100%);
   color: #fff;
-  height: 4rem;
+  height: 6rem;
 }
 
 .app-details {
@@ -748,10 +758,10 @@ table {
   background: linear-gradient(to bottom, #181818 0%, #111111 100%);
   border-top: 1px solid #303030;
   color: #6d6d6d;
-  height: 2.5rem;
+  height: 3rem;
   font-family: Arial;
   font-size: 1.3rem;
-  line-height: 2.5rem;
+  line-height: 3rem;
   padding: 0 1rem;
   text-align: right;
 }
@@ -788,8 +798,8 @@ table {
   cursor: pointer;
   display: inline-block;
   width: 50%;
-  height: 4rem;
-  line-height: 4rem;
+  height: 6rem;
+  line-height: 6rem;
   position: relative;
   text-align: center;
 }
@@ -846,7 +856,7 @@ table {
   font-size: 1.4rem;
   width: 22rem;
   position: absolute;
-  bottom: 4rem;
+  bottom: 6rem;
   right: -1px;
   padding: 1rem;
   text-align: left;
@@ -875,25 +885,21 @@ table {
 }
 
 @media screen and (min-width: 37.5em) {
-  .app-top {
-    padding-bottom: 9.75rem;
-  }
-
-  .app-bottom {
-    height: 9.75rem;
-  }
-
   .app-controls,
   .app-controls-item {
-    height: 6rem;
+    height: 7.5rem;
   }
 
   .app-controls-item {
-    line-height: 6rem;
+    line-height: 7.5rem;
+  }
+
+  .app-controls-item:before {
+    font-size: 2.1875rem;
   }
 
   .app-controls-menu {
-    bottom: 6rem;
+    bottom: 7.5rem;
   }
 
   .app-details {

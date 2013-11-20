@@ -1,17 +1,20 @@
+$app-controls-height: 6rem;
+$app-details-height: 3rem;
+
 .app-controls {
     background: linear-gradient(to bottom, #202020 0%,#111 100%);
     color: #fff;
-    height: 4rem;
+    height: $app-controls-height;
 }
 
 .app-details {
   background: linear-gradient(to bottom, #181818 0%,#111 100%);
   border-top: 1px solid #303030;
   color: #6d6d6d;
-  height: 2.5rem;
+  height: $app-details-height;
   font-family: Arial;
   font-size: 1.3rem;
-  line-height: 2.5rem;
+  line-height: $app-details-height;
   padding: 0 1rem;
   text-align: right;
 }
@@ -36,8 +39,8 @@
   cursor: pointer;
   display: inline-block;
   width: 50%;
-  height: 4rem;
-  line-height: 4rem;
+  height: $app-controls-height;
+  line-height: $app-controls-height;
   position: relative;
   text-align: center;
 
@@ -90,7 +93,7 @@
   font-size: 1.4rem;
   width: 22rem;
   position: absolute;
-  bottom: 4rem;
+  bottom: $app-controls-height;
   right: -1px; // Adjusts for the button border
   padding: 1rem;
   text-align: left;
@@ -120,29 +123,26 @@
 }
 
 @media screen and (min-width: $break-medium) {
-  .app-top {
-    padding-bottom: $app-bottom-height * 1.5;
-  }
-
-  .app-bottom {
-    height: $app-bottom-height * 1.5;
-  }
 
   .app-controls,
   .app-controls-item {
-    height: 4rem * 1.5;
+    height: $app-controls-height * 1.25;
   }
 
   .app-controls-item {
-    line-height: 4rem * 1.5;
+    line-height: $app-controls-height * 1.25;
+  }
+
+  .app-controls-item:before {
+    font-size: 1.75rem * 1.25;
   }
 
   .app-controls-menu {
-    bottom: 4rem * 1.5;
+    bottom: $app-controls-height * 1.25;
   }
 
   .app-details {
-    height: 2.5rem * 1.5;
-    line-height: 2.5rem * 1.5;
+    height: $app-details-height * 1.25;
+    line-height: $app-details-height * 1.25;
   }
 }

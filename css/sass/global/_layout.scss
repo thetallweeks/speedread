@@ -1,4 +1,4 @@
-$app-bottom-height: 6.5rem;
+$app-bottom-height: 9rem;
 
 .app-top,
 .app-controls,
@@ -16,6 +16,16 @@ $app-bottom-height: 6.5rem;
   padding-bottom: $app-bottom-height;
   position: relative;
   height: 100%;
+}
+
+@media screen and (min-width: $break-medium) {
+  .app-top {
+    padding-bottom: $app-bottom-height * 1.25;
+  }
+
+  .app-bottom {
+    height: $app-bottom-height * 1.25;
+  }
 }
 
 /* Grid HTML Classes */
