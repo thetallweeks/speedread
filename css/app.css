@@ -891,6 +891,10 @@ table {
     line-height: 6rem;
   }
 
+  .app-controls-menu {
+    bottom: 6rem;
+  }
+
   .app-details {
     height: 3.75rem;
     line-height: 3.75rem;
