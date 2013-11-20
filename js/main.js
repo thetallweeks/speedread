@@ -22,9 +22,12 @@ var SPREEDY = {
     // Begin watching text input
     SPREEDY.watchTextArea(SPREEDY.textInput);
 
-    // Create interval variable in the global scope
-    // Needed for clearInterval to work
-    var displayWordsInterval;
+    words = [];
+
+    // Create a global variable for the setTimeout interval
+    var interval;
+
+    isPlaying = false;
 
     // Set the default font
     SPREEDY.chooseFont();
@@ -71,9 +74,12 @@ var SPREEDY = {
 
     // Bind click function for play/pause
     SPREEDY.playPauseButton.click(function() {
-      // TODO: Check for empty textarea
-      SPREEDY.playPauseButton.removeClass('icon-play').addClass('icon-pause');
-      SPREEDY.displayWords(SPREEDY.config.speed);
+
+      if(words.length > 0 && !isPlaying) {
+        SPREEDY.play();
+      } else {
+        SPREEDY.pause();
+      }
 
       // TODO: Set up state for play/pause
     });
@@ -186,11 +192,12 @@ var SPREEDY = {
     });
   },
 
-  removeFontClass : function () {
+  removeFontClass : function() {
 
     // TODO: Refactor this to work more efficiently
     // Can this be set up to work without needing to know
     // the class that shoud be removed?
+
     if(SPREEDY.wordDisplay.hasClass('lora')) {
       SPREEDY.wordDisplay.removeClass('lora');
     } else if(SPREEDY.wordDisplay.hasClass('montserrat')) {
@@ -213,46 +220,50 @@ var SPREEDY = {
   },
 
   displayWords : function(speed) {
-
     // Show Word Display
     SPREEDY.wordDisplayContainer.removeClass('is-hidden');
 
     // Hide Input
     SPREEDY.textInputContainer.addClass('is-hidden');
 
-    speed = (1 / (speed / 60)) * 1000;
 
-    var i = 0;
+    // Convert speed to ms
+    var speedInMS = (1 / (speed / 60)) * 1000;
 
-    // TODOS: Speed causes wait before first word and
-    // pace seems inconsistent
-    displayWordsInterval = setInterval(function() {
+    var i = 0,
+        j = words.length;
 
-      SPREEDY.wordDisplay.html(words[i++]);
-
-      // Stop SetInterval when counter = array length
-      if(i === words.length) {
-
-        // SetIntervalID is the function name
-        clearInterval(displayWordsInterval);
-
-        SPREEDY.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    (function timer() {
+      SPREEDY.wordDisplay.html(words[i]);
+      i++;
+      if(i < j) {
+        interval = setTimeout(timer,speedInMS);
       }
-
-    }, speed);
+    })();
 
   },
 
   stopDisplayWords : function() {
 
     // Prevent display speed from increasing
-    clearInterval(displayWordsInterval);
-
+    clearTimeout(interval);
+    isPlaying = false;
     SPREEDY.wordDisplayContainer.addClass('is-hidden');
     SPREEDY.wordDisplay.empty();
     SPREEDY.textInputContainer.removeClass('is-hidden');
     SPREEDY.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+  },
 
+  play : function() {
+    SPREEDY.playPauseButton.removeClass('icon-play').addClass('icon-pause');
+    SPREEDY.displayWords(SPREEDY.config.speed);
+    isPlaying = true;
+  },
+
+  pause : function() {
+    SPREEDY.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    clearTimeout(interval);
+    isPlaying = false;
   }
 
 };
