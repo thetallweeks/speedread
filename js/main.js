@@ -27,6 +27,8 @@ var SPREEDY = {
     // Create a global variable for the setTimeout interval
     var interval;
 
+    placeholder = 0;
+
     isPlaying = false;
 
     // Set the default font
@@ -43,6 +45,7 @@ var SPREEDY = {
     SPREEDY.wordCount = $('#spreedyWordCount');
     SPREEDY.playPauseButton = $('#spreedyPlayPause');
     SPREEDY.stopButton = $('#spreedyStop');
+    SPREEDY.popupButtons = $('.app-controls-menu-container');
     SPREEDY.popupMenus = $('.app-controls-menu');
 
     // Speed Settings
@@ -74,60 +77,28 @@ var SPREEDY = {
 
     // Bind click function for play/pause
     SPREEDY.playPauseButton.click(function() {
-
-      if(words.length > 0 && !isPlaying) {
-        SPREEDY.play();
-      } else {
-        SPREEDY.pause();
+      if(words.length > 0) {
+        if(!isPlaying) {
+          SPREEDY.play();
+        } else {
+          SPREEDY.pause();
+        }
       }
-
-      // TODO: Set up state for play/pause
     });
 
     // Bind click function for Stop
     SPREEDY.stopButton.click(function() {
-      SPREEDY.stopDisplayWords();
+      if(words.length > 0) {
+        SPREEDY.stopDisplayWords();
+      }
     });
-
-    // TODO: Abstract show popup to work for both
-    // Speed Settings and Font Settings
 
     // Bind click for Speed Settings
-    SPREEDY.speedSettings.click(function() {
-      event.stopPropagation();
-
-      // Toggle off Font Settings popup
-      SPREEDY.fontSettings.removeClass('is-active');
-      SPREEDY.fontSettingsMenu.addClass('is-hidden');
-      if(SPREEDY.speedSettingsMenu.hasClass('is-hidden')) {
-        $(this).addClass('is-active');
-        SPREEDY.speedSettingsMenu.removeClass('is-hidden');
-      } else {
-        $(this).removeClass('is-active');
-        SPREEDY.speedSettingsMenu.addClass('is-hidden');
-      }
+    SPREEDY.popupButtons.click(function() {
+      SPREEDY.popup();
     });
 
-    SPREEDY.speedSettingsMenu.click(function() {
-      event.stopPropagation();
-    });
-
-    // Bind click for Font Settings
-    SPREEDY.fontSettings.click(function() {
-      event.stopPropagation();
-      SPREEDY.speedSettings.removeClass('is-active');
-      SPREEDY.speedSettingsMenu.addClass('is-hidden');
-      if(SPREEDY.fontSettingsMenu.hasClass('is-hidden')) {
-        $(this).addClass('is-active');
-        SPREEDY.fontSettingsMenu.removeClass('is-hidden');
-      } else {
-        $(this).removeClass('is-active');
-        SPREEDY.fontSettingsMenu.addClass('is-hidden');
-        SPREEDY.fontSettingsMenu.addClass('is-hidden');
-      }
-    });
-
-    SPREEDY.fontSettingsMenu.click(function() {
+    SPREEDY.popupMenus.click(function() {
       event.stopPropagation();
     });
 
@@ -158,6 +129,28 @@ var SPREEDY = {
     // Update word count with new value
     SPREEDY.wordCount.html(wordCount);
 
+  },
+
+  popup : function() {
+
+    event.stopPropagation();
+
+    var target = $(event.target);
+
+    if(target.hasClass('is-active')) {
+      target.removeClass('is-active');
+      target.find('.app-controls-menu').addClass('is-hidden');
+    } else {
+      SPREEDY.popupMenus.addClass('is-hidden');
+      SPREEDY.popupButtons.removeClass('is-active');
+      target.addClass('is-active');
+      target.find('.app-controls-menu').removeClass('is-hidden');
+    }
+  },
+
+  clearPopup : function() {
+    SPREEDY.popupButtons.removeClass('is-active');
+    SPREEDY.popupMenus.addClass('is-hidden');
   },
 
   watchSpeedSetting : function(input) {
@@ -193,26 +186,7 @@ var SPREEDY = {
   },
 
   removeFontClass : function() {
-
-    // TODO: Refactor this to work more efficiently
-    // Can this be set up to work without needing to know
-    // the class that shoud be removed?
-
-    if(SPREEDY.wordDisplay.hasClass('lora')) {
-      SPREEDY.wordDisplay.removeClass('lora');
-    } else if(SPREEDY.wordDisplay.hasClass('montserrat')) {
-      SPREEDY.wordDisplay.removeClass('montserrat');
-    } else if(SPREEDY.wordDisplay.hasClass('sanchez')) {
-      SPREEDY.wordDisplay.removeClass('sanchez');
-    } else if(SPREEDY.wordDisplay.hasClass('poly')) {
-      SPREEDY.wordDisplay.removeClass('poly');
-    } else if(SPREEDY.wordDisplay.hasClass('pt-serif')) {
-      SPREEDY.wordDisplay.removeClass('pt-serif');
-    } else if(SPREEDY.wordDisplay.hasClass('roboto')) {
-      SPREEDY.wordDisplay.removeClass('roboto');
-    } else if(SPREEDY.wordDisplay.hasClass('georgia')) {
-      SPREEDY.wordDisplay.removeClass('georgia');
-    }
+    SPREEDY.wordDisplay.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
   },
 
   setFont : function() {
@@ -220,33 +194,44 @@ var SPREEDY = {
   },
 
   displayWords : function(speed) {
+
     // Show Word Display
     SPREEDY.wordDisplayContainer.removeClass('is-hidden');
 
     // Hide Input
     SPREEDY.textInputContainer.addClass('is-hidden');
 
-
     // Convert speed to ms
     var speedInMS = (1 / (speed / 60)) * 1000;
 
-    var i = 0,
+    var i = placeholder,
         j = words.length;
 
     (function timer() {
       SPREEDY.wordDisplay.html(words[i]);
       i++;
-      if(i < j) {
+      if (i === j - 1) {
+        SPREEDY.resetDisplayWords();
+      } else if (i < j) {
+        placeholder++;
         interval = setTimeout(timer,speedInMS);
       }
     })();
 
   },
 
+  resetDisplayWords : function() {
+    isPlaying = false;
+    clearTimeout(interval);
+    placeholder = 0;
+    SPREEDY.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+  },
+
   stopDisplayWords : function() {
 
     // Prevent display speed from increasing
     clearTimeout(interval);
+    placeholder = 0;
     isPlaying = false;
     SPREEDY.wordDisplayContainer.addClass('is-hidden');
     SPREEDY.wordDisplay.empty();

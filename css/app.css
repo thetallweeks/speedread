@@ -841,6 +841,7 @@ table {
 
 .app-controls-menu {
   background-color: #1a1919;
+  cursor: default;
   font-family: Georgia, "PT Serif", serif;
   font-size: 1.4rem;
   width: 22rem;
@@ -921,20 +922,26 @@ table {
 
 .word-display {
   display: table-cell;
-  font-size: 3.5rem;
+  font-size: 3.8rem;
   text-align: center;
   vertical-align: middle;
 }
 
+@media screen and (min-width: 20em) {
+  .word-display {
+    font-size: 4.5rem;
+  }
+}
+
 @media screen and (min-width: 30em) {
   .word-display {
-    font-size: 4rem;
+    font-size: 5.5rem;
   }
 }
 
 @media screen and (min-width: 37.5em) {
   .word-display {
-    font-size: 6rem;
+    font-size: 6.5rem;
   }
 }
 
