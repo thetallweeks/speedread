@@ -8,7 +8,7 @@ var SPEEDREAD = {
     // Sets default words per minute
     speed : 300,
 
-    chunkSize : 1
+    chunkSize : 3
 
   },
 
