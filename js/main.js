@@ -186,10 +186,12 @@ var SPEEDREAD = {
   },
 
   removeFontClass : function() {
+    SPEEDREAD.textInput.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
     SPEEDREAD.wordDisplay.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
   },
 
   setFont : function() {
+    SPEEDREAD.textInput.addClass(SPEEDREAD.config.font);
     SPEEDREAD.wordDisplay.addClass(SPEEDREAD.config.font);
   },
 
