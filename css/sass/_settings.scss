@@ -99,8 +99,24 @@ $app-details-height: 3rem;
   text-align: left;
 }
 
+.app-controls-menu-item {
+  border-top: 1px solid #292929;
+  line-height: 2;
+  margin-top: 1rem;
+  padding-top: 1rem;
+
+  &:first-child {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
 .app-controls-menu-input {
+  float: right;
   font-family: Arial;
+  font-size: 1.5;
+  line-height: 1.4;
   margin-left: .5rem;
   max-width: 5.5rem;
 }

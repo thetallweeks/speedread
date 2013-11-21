@@ -47,15 +47,13 @@
                     <div id="speedReadFontSettings" class="app-controls-item app-controls-item-right app-controls-menu-container icon-font-settings">
                         <span class="hide-text">Font Settings</span>
                         <div id="speedReadFontSettingsMenu" class="app-controls-menu">
-                            <div class="app-controls-menu-item">
-                                <div id="speedReadFontOptions" class="">
-                                    <div id="lora" class="font-option lora is-active">Lora</div>
-                                    <div id="montserrat" class="font-option montserrat">Montserrat</div>
-                                    <div id="sanchez" class="font-option sanchez">Sanchez</div>
-                                    <div id="poly" class="font-option poly">Poly</div>
-                                    <div id="pt-serif" class="font-option pt-serif">PT Serif</div>
-                                    <div id="roboto" class="font-option roboto">Roboto</div>
-                                </div>
+                            <div id="speedReadFontOptions" class="">
+                                <div id="lora" class="font-option lora is-active">Lora</div>
+                                <div id="montserrat" class="font-option montserrat">Montserrat</div>
+                                <div id="sanchez" class="font-option sanchez">Sanchez</div>
+                                <div id="poly" class="font-option poly">Poly</div>
+                                <div id="pt-serif" class="font-option pt-serif">PT Serif</div>
+                                <div id="roboto" class="font-option roboto">Roboto</div>
                             </div>
                         </div>
                     </div>
@@ -65,13 +63,29 @@
                         <div id="speedReadSpeedSettingsMenu" class="app-controls-menu">
                             <div class="app-controls-menu-item">
                                 <span>Words per Minute</span>
-                                <input id="speedReadSpeedInput" class="app-controls-menu-input" id="" type="number" min="60" max="3000" step="1" value="300" size="5" />
+                                <input id="speedReadSpeedInput" class="app-controls-menu-input" type="number" min="60" max="3000" step="1" value="300" size="5" />
+                            </div>
+                            <div class="app-controls-menu-item">
+                                <span>Number of Words</span>
+                                <input id="speedReadChunkSizeInput" class="app-controls-menu-input" type="number" min="1" step="1" value="1" size="5" />
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="app-details"><span id="speedReadWordCount">0</span> words at <span id="speedReadSpeed">300</span> words per minute</section>
+            <section class="app-details">
+                <span>
+                    <span id="speedReadWordCount">0</span>
+                    words at
+                    <span id="speedReadSpeedDisplay">300</span>
+                    words per minute
+                </span>
+                |
+                <span>
+                    <span id="speedReadChunkSizeDisplay">1 word</span>
+                    at a time
+                </span>
+            </section>
         </section>
 
 

@@ -6,7 +6,9 @@ var SPEEDREAD = {
     font: "lora",
 
     // Sets default words per minute
-    speed : 300
+    speed : 300,
+
+    chunkSize : 1
 
   },
 
@@ -18,6 +20,7 @@ var SPEEDREAD = {
 
     // Begin watching Speed Setting Input
     SPEEDREAD.watchSpeedSetting(SPEEDREAD.speedInput);
+    SPEEDREAD.watchChunkSizeSetting(SPEEDREAD.chunkSizeInput);
 
     // Begin watching text input
     SPEEDREAD.watchTextArea(SPEEDREAD.textInput);
@@ -52,7 +55,11 @@ var SPEEDREAD = {
     SPEEDREAD.speedSettings = $('#speedReadSpeedSettings');
     SPEEDREAD.speedSettingsMenu = $('#speedReadSpeedSettingsMenu');
     SPEEDREAD.speedInput = $('#speedReadSpeedInput');
-    SPEEDREAD.speed = $('#speedReadSpeed');
+    SPEEDREAD.speedDisplay = $('#speedReadSpeedDisplay');
+
+    // ChunkSize
+    SPEEDREAD.chunkSizeInput = $('#speedReadChunkSizeInput');
+    SPEEDREAD.chunkSizeDisplay = $('#speedReadChunkSizeDisplay');
 
     // Font Settings
     SPEEDREAD.fontSettings = $('#speedReadFontSettings');
@@ -107,7 +114,7 @@ var SPEEDREAD = {
   watchTextArea : function(input) {
 
     // Watch textarea for changes
-    input.on('keyup propertychange paste', function() {
+    input.on('input', function() {
       SPEEDREAD.createWords(input);
       SPEEDREAD.wordCounter(words);
     });
@@ -116,8 +123,16 @@ var SPEEDREAD = {
 
   createWords : function(input) {
 
+    // Create teh pattern using the chunkSize value
+    var pattern = '[^ ]+( +[^ ]+){0,' + (SPEEDREAD.config.chunkSize - 1) + '}';
+
+    // We need to create a RegEx object to be able to use the
+    // pattern variable. 'g' prevents the RegEx from stopping at
+    // the first match
+    var re = new RegExp(pattern, 'g');
+
     // Creates words array from input text
-    words = input.val().trim().split(' ');
+    words = input.val().match(re);
 
   },
 
@@ -156,17 +171,50 @@ var SPEEDREAD = {
   watchSpeedSetting : function(input) {
 
     // Set new Speed value
-    input.on('keyup propertychange paste', function() {
+    input.on('input', function() {
       SPEEDREAD.setSpeed();
     });
   },
 
   setSpeed : function() {
 
+    // Make sure words per minute is greater than 0
+    if(SPEEDREAD.speedInput.val() < 1) {
+      SPEEDREAD.speedInput.val(1);
+    }
     SPEEDREAD.config.speed = SPEEDREAD.speedInput.val();
 
     // Update Speed display
-    SPEEDREAD.speed.html(SPEEDREAD.config.speed);
+    SPEEDREAD.speedDisplay.html(SPEEDREAD.config.speed);
+
+  },
+
+  watchChunkSizeSetting : function(input) {
+
+    // Set new Speed value
+    input.on('input', function() {
+      SPEEDREAD.setChunkSize();
+    });
+  },
+
+  setChunkSize : function() {
+
+    // Update Speed display
+    if(SPEEDREAD.chunkSizeInput.val() < 1) {
+      SPEEDREAD.chunkSizeInput.val(1);
+    }
+    SPEEDREAD.config.chunkSize = SPEEDREAD.chunkSizeInput.val();
+
+    if(SPEEDREAD.config.chunkSize === 1) {
+      SPEEDREAD.chunkSizeDisplay.html(SPEEDREAD.config.chunkSize + ' word');
+    } else {
+      SPEEDREAD.chunkSizeDisplay.html(SPEEDREAD.config.chunkSize + ' words');
+    }
+
+    SPEEDREAD.createWords(SPEEDREAD.textInput);
+
+    // TODO: Add class on wordsDisplay to alter font size
+    // based on chunkSize
 
   },
 
@@ -195,7 +243,7 @@ var SPEEDREAD = {
     SPEEDREAD.wordDisplay.addClass(SPEEDREAD.config.font);
   },
 
-  displayWords : function(speed) {
+  displayWords : function() {
 
     // Show Word Display
     SPEEDREAD.wordDisplayContainer.removeClass('is-hidden');
@@ -203,8 +251,10 @@ var SPEEDREAD = {
     // Hide Input
     SPEEDREAD.textInputContainer.addClass('is-hidden');
 
+    console.log(SPEEDREAD.config.chunkSize);
+
     // Convert speed to ms
-    var speedInMS = (1 / (speed / 60)) * 1000;
+    var speedInMS = (1 / ((SPEEDREAD.config.speed / SPEEDREAD.config.chunkSize) / 60)) * 1000;
 
     var i = placeholder,
         j = words.length;
@@ -224,6 +274,8 @@ var SPEEDREAD = {
 
   resetDisplayWords : function() {
     isPlaying = false;
+
+    // TODO: Error when chunkSize is larger than words.length
     clearTimeout(interval);
     placeholder = 0;
     SPEEDREAD.playPauseButton.removeClass('icon-pause').addClass('icon-play');
@@ -243,7 +295,7 @@ var SPEEDREAD = {
 
   play : function() {
     SPEEDREAD.playPauseButton.removeClass('icon-play').addClass('icon-pause');
-    SPEEDREAD.displayWords(SPEEDREAD.config.speed);
+    SPEEDREAD.displayWords();
     isPlaying = true;
   },
 
