@@ -19,11 +19,11 @@ var SPEEDREAD = {
     SPEEDREAD.bindUI();
 
     // Begin watching Speed Setting Input
-    SPEEDREAD.watchSpeedSetting(SPEEDREAD.speedInput);
-    SPEEDREAD.watchChunkSizeSetting(SPEEDREAD.chunkSizeInput);
+    SPEEDREAD.watchSpeedSetting($speedInput);
+    SPEEDREAD.watchChunkSizeSetting($chunkSizeInput);
 
     // Begin watching text input
-    SPEEDREAD.watchTextArea(SPEEDREAD.textInput);
+    SPEEDREAD.watchTextArea($textInput);
 
     words = [];
 
@@ -41,29 +41,28 @@ var SPEEDREAD = {
 
   createUIVariables : function() {
     // Set DOM elements as variables for reuse
-    SPEEDREAD.textInput = $('#speedReadTextInput');
-    SPEEDREAD.textInputContainer = $('#speedReadTextInputContainer');
-    SPEEDREAD.wordDisplayContainer = $('#speedReadWordDisplayContainer');
-    SPEEDREAD.wordDisplay = $('#speedReadWordDisplay');
-    SPEEDREAD.wordCount = $('#speedReadWordCount');
-    SPEEDREAD.playPauseButton = $('#speedReadPlayPause');
-    SPEEDREAD.stopButton = $('#speedReadStop');
-    SPEEDREAD.popupButtons = $('.app-controls-menu-container');
-    SPEEDREAD.popupMenus = $('.app-controls-menu');
+    $textInput = $('#speedReadTextInput');
+    $textInputContainer = $('#speedReadTextInputContainer');
+    $wordDisplayContainer = $('#speedReadWordDisplayContainer');
+    $wordDisplay = $('#speedReadWordDisplay');
+    $wordCountDisplay = $('#speedReadWordCountDisplay');
+    $playPauseButton = $('#speedReadPlayPause');
+    $stopButton = $('#speedReadStop');
+    $popupButtons = $('.app-controls-menu-container');
+    $popupMenus = $('.app-controls-menu');
 
     // Speed Settings
-    SPEEDREAD.speedSettings = $('#speedReadSpeedSettings');
-    SPEEDREAD.speedSettingsMenu = $('#speedReadSpeedSettingsMenu');
-    SPEEDREAD.speedInput = $('#speedReadSpeedInput');
-    SPEEDREAD.speedDisplay = $('#speedReadSpeedDisplay');
+    $speedSettings = $('#speedReadSpeedSettings');
+    $speedInput = $('#speedReadSpeedInput');
+    $speedDisplay = $('#speedReadSpeedDisplay');
 
     // ChunkSize
-    SPEEDREAD.chunkSizeInput = $('#speedReadChunkSizeInput');
-    SPEEDREAD.chunkSizeDisplay = $('#speedReadChunkSizeDisplay');
+    $chunkSizeInput = $('#speedReadChunkSizeInput');
+    $chunkSizeDisplay = $('#speedReadChunkSizeDisplay');
 
     // Font Settings
-    SPEEDREAD.fontSettings = $('#speedReadFontSettings');
-    SPEEDREAD.fontSettingsMenu = $('#speedReadFontSettingsMenu');
+    $fontSettings = $('#speedReadFontSettings');
+    $fontSettingsMenu = $('#speedReadFontSettingsMenu');
 
   },
 
@@ -71,19 +70,19 @@ var SPEEDREAD = {
 
     // Hide menus when clicking off of target
     $('html').click(function() {
-      SPEEDREAD.popupMenus.addClass('is-hidden');
-      SPEEDREAD.speedSettings.removeClass('is-active');
-      SPEEDREAD.fontSettings.removeClass('is-active');
+      $popupMenus.addClass('is-hidden');
+      $speedSettings.removeClass('is-active');
+      $fontSettings.removeClass('is-active');
     });
 
     // Set the word display to hidden by default
-    SPEEDREAD.wordDisplayContainer.addClass('is-hidden');
+    $wordDisplayContainer.addClass('is-hidden');
 
     // Hide Speed Settings popup
-    SPEEDREAD.popupMenus.addClass('is-hidden');
+    $popupMenus.addClass('is-hidden');
 
     // Bind click function for play/pause
-    SPEEDREAD.playPauseButton.click(function() {
+    $playPauseButton.click(function() {
       if(words.length > 0) {
         if(!isPlaying) {
           SPEEDREAD.play();
@@ -94,18 +93,18 @@ var SPEEDREAD = {
     });
 
     // Bind click function for Stop
-    SPEEDREAD.stopButton.click(function() {
+    $stopButton.click(function() {
       if(words.length > 0) {
         SPEEDREAD.stopDisplayWords();
       }
     });
 
     // Bind click for Speed Settings
-    SPEEDREAD.popupButtons.click(function() {
+    $popupButtons.click(function() {
       SPEEDREAD.popup();
     });
 
-    SPEEDREAD.popupMenus.click(function() {
+    $popupMenus.click(function() {
       event.stopPropagation();
     });
 
@@ -116,7 +115,7 @@ var SPEEDREAD = {
     // Watch textarea for changes
     input.on('input', function() {
       SPEEDREAD.createWords(input);
-      SPEEDREAD.wordCounter(words);
+      $wordCountDisplayer(words);
     });
 
   },
@@ -142,7 +141,7 @@ var SPEEDREAD = {
     var wordCount = array.length;
 
     // Update word count with new value
-    SPEEDREAD.wordCount.html(wordCount);
+    $wordCountDisplay.html(wordCount);
 
   },
 
@@ -156,16 +155,16 @@ var SPEEDREAD = {
       target.removeClass('is-active');
       target.find('.app-controls-menu').addClass('is-hidden');
     } else {
-      SPEEDREAD.popupMenus.addClass('is-hidden');
-      SPEEDREAD.popupButtons.removeClass('is-active');
+      $popupMenus.addClass('is-hidden');
+      $popupButtons.removeClass('is-active');
       target.addClass('is-active');
       target.find('.app-controls-menu').removeClass('is-hidden');
     }
   },
 
   clearPopup : function() {
-    SPEEDREAD.popupButtons.removeClass('is-active');
-    SPEEDREAD.popupMenus.addClass('is-hidden');
+    $popupButtons.removeClass('is-active');
+    $popupMenus.addClass('is-hidden');
   },
 
   watchSpeedSetting : function(input) {
@@ -179,13 +178,13 @@ var SPEEDREAD = {
   setSpeed : function() {
 
     // Make sure words per minute is greater than 0
-    if(SPEEDREAD.speedInput.val() < 1) {
-      SPEEDREAD.speedInput.val(1);
+    if($speedInput.val() < 1) {
+      $speedInput.val(1);
     }
-    SPEEDREAD.config.speed = SPEEDREAD.speedInput.val();
+    SPEEDREAD.config.speed = $speedInput.val();
 
     // Update Speed display
-    SPEEDREAD.speedDisplay.html(SPEEDREAD.config.speed);
+    $speedDisplay.html(SPEEDREAD.config.speed);
 
   },
 
@@ -200,18 +199,18 @@ var SPEEDREAD = {
   setChunkSize : function() {
 
     // Update Speed display
-    if(SPEEDREAD.chunkSizeInput.val() < 1) {
-      SPEEDREAD.chunkSizeInput.val(1);
+    if($chunkSizeInput.val() < 1) {
+      $chunkSizeInput.val(1);
     }
-    SPEEDREAD.config.chunkSize = SPEEDREAD.chunkSizeInput.val();
+    SPEEDREAD.config.chunkSize = $chunkSizeInput.val();
 
     if(SPEEDREAD.config.chunkSize === 1) {
-      SPEEDREAD.chunkSizeDisplay.html(SPEEDREAD.config.chunkSize + ' word');
+      $chunkSizeDisplay.html(SPEEDREAD.config.chunkSize + ' word');
     } else {
-      SPEEDREAD.chunkSizeDisplay.html(SPEEDREAD.config.chunkSize + ' words');
+      $chunkSizeDisplay.html(SPEEDREAD.config.chunkSize + ' words');
     }
 
-    SPEEDREAD.createWords(SPEEDREAD.textInput);
+    SPEEDREAD.createWords($textInput);
 
     // TODO: Add class on wordsDisplay to alter font size
     // based on chunkSize
@@ -220,8 +219,8 @@ var SPEEDREAD = {
 
   chooseFont : function() {
     SPEEDREAD.setFont();
-    SPEEDREAD.fontSettingsMenu.find('.font-option').click(function() {
-      SPEEDREAD.fontSettingsMenu.find('.font-option').removeClass('is-active');
+    $fontSettingsMenu.find('.font-option').click(function() {
+      $fontSettingsMenu.find('.font-option').removeClass('is-active');
 
       // Don't create a jQuery object here
       SPEEDREAD.config.font = event.target.id;
@@ -234,22 +233,22 @@ var SPEEDREAD = {
   },
 
   removeFontClass : function() {
-    SPEEDREAD.textInput.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
-    SPEEDREAD.wordDisplay.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
+    $textInput.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
+    $wordDisplay.removeClass('lora montserrat sanchez poly pt-serif roboto georgia');
   },
 
   setFont : function() {
-    SPEEDREAD.textInput.addClass(SPEEDREAD.config.font);
-    SPEEDREAD.wordDisplay.addClass(SPEEDREAD.config.font);
+    $textInput.addClass(SPEEDREAD.config.font);
+    $wordDisplay.addClass(SPEEDREAD.config.font);
   },
 
   displayWords : function() {
 
     // Show Word Display
-    SPEEDREAD.wordDisplayContainer.removeClass('is-hidden');
+    $wordDisplayContainer.removeClass('is-hidden');
 
     // Hide Input
-    SPEEDREAD.textInputContainer.addClass('is-hidden');
+    $textInputContainer.addClass('is-hidden');
 
     console.log(SPEEDREAD.config.chunkSize);
 
@@ -260,7 +259,7 @@ var SPEEDREAD = {
         j = words.length;
 
     (function timer() {
-      SPEEDREAD.wordDisplay.html(words[i]);
+      $wordDisplay.html(words[i]);
       i++;
       if (i === j) {
         SPEEDREAD.resetDisplayWords();
@@ -278,7 +277,7 @@ var SPEEDREAD = {
     // TODO: Error when chunkSize is larger than words.length
     clearTimeout(interval);
     placeholder = 0;
-    SPEEDREAD.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    $playPauseButton.removeClass('icon-pause').addClass('icon-play');
   },
 
   stopDisplayWords : function() {
@@ -287,20 +286,20 @@ var SPEEDREAD = {
     clearTimeout(interval);
     placeholder = 0;
     isPlaying = false;
-    SPEEDREAD.wordDisplayContainer.addClass('is-hidden');
-    SPEEDREAD.wordDisplay.empty();
-    SPEEDREAD.textInputContainer.removeClass('is-hidden');
-    SPEEDREAD.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    $wordDisplayContainer.addClass('is-hidden');
+    $wordDisplay.empty();
+    $textInputContainer.removeClass('is-hidden');
+    $playPauseButton.removeClass('icon-pause').addClass('icon-play');
   },
 
   play : function() {
-    SPEEDREAD.playPauseButton.removeClass('icon-play').addClass('icon-pause');
+    $playPauseButton.removeClass('icon-play').addClass('icon-pause');
     SPEEDREAD.displayWords();
     isPlaying = true;
   },
 
   pause : function() {
-    SPEEDREAD.playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    $playPauseButton.removeClass('icon-pause').addClass('icon-play');
     clearTimeout(interval);
     isPlaying = false;
   }
