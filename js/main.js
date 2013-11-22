@@ -6,8 +6,9 @@ var SPEEDREAD = {
     font: "lora",
 
     // Sets default words per minute
-    speed : 300,
+    speed : 400,
 
+    // Set default words at a time
     chunkSize : 3
 
   },
@@ -16,23 +17,34 @@ var SPEEDREAD = {
 
     SPEEDREAD.createUIVariables();
 
-    SPEEDREAD.bindUI();
+    // Set the word display to hidden by default
+    $wordDisplayContainer.addClass('is-hidden');
 
-    // Begin watching Speed Setting Input
+    // Hide Speed Settings popup
+    $popupMenus.addClass('is-hidden');
+
+    SPEEDREAD.bindUI();
+    SPEEDREAD.bindSettings();
+
+    // Watch settings
     SPEEDREAD.watchSpeedSetting($speedInput);
     SPEEDREAD.watchChunkSizeSetting($chunkSizeInput);
 
-    // Begin watching text input
+    // Watch text input
     SPEEDREAD.watchTextArea($textInput);
 
+    // Create empty words array in the global scope
     words = [];
 
     // Create a global variable for the setTimeout interval
-    var interval;
+    interval = null;
+    delay = null;
 
+    // Create placeholder in the global scope
     placeholder = 0;
 
-    isPlaying = false;
+    // Create state variable in the global scope
+    state = 0; // 0 = Stopped, 1 = Playing, 2 = Paused, 3 = Paused Artificially
 
     // Set the default font
     SPEEDREAD.chooseFont();
@@ -75,16 +87,10 @@ var SPEEDREAD = {
       $fontSettings.removeClass('is-active');
     });
 
-    // Set the word display to hidden by default
-    $wordDisplayContainer.addClass('is-hidden');
-
-    // Hide Speed Settings popup
-    $popupMenus.addClass('is-hidden');
-
     // Bind click function for play/pause
     $playPauseButton.click(function() {
       if(words.length > 0) {
-        if(!isPlaying) {
+        if(state === 0 || state === 2) {
           SPEEDREAD.play();
         } else {
           SPEEDREAD.pause();
@@ -110,12 +116,27 @@ var SPEEDREAD = {
 
   },
 
+  bindSettings : function() {
+
+    // Set speed input value = config value
+    $speedInput.val(SPEEDREAD.config.speed);
+
+    // Update speed Display
+    SPEEDREAD.setSpeed();
+
+    // Set chunkSize input value = config value
+    $chunkSizeInput.val(SPEEDREAD.config.chunkSize);
+
+    // Update chunkSize
+    SPEEDREAD.setChunkSize();
+  },
+
   watchTextArea : function(input) {
 
     // Watch textarea for changes
     input.on('input', function() {
       SPEEDREAD.createWords(input);
-      $wordCountDisplayer(words);
+      SPEEDREAD.wordCounter($textInput);
     });
 
   },
@@ -135,10 +156,10 @@ var SPEEDREAD = {
 
   },
 
-  wordCounter : function(array) {
+  wordCounter : function(input) {
 
     // Create variable to hold word count
-    var wordCount = array.length;
+    var wordCount = input.val().trim().split(' ').length;
 
     // Update word count with new value
     $wordCountDisplay.html(wordCount);
@@ -171,21 +192,40 @@ var SPEEDREAD = {
 
     // Set new Speed value
     input.on('input', function() {
+      if(state === 1) {
+        SPEEDREAD.pause();
+        state = 3;
+      }
       SPEEDREAD.setSpeed();
+      SPEEDREAD.convertSpeedToMS(SPEEDREAD.config.speed);
+
+      // TODO: Set up play button with delay equal to speedInMS
+      // This will allow you to increase the speed without having
+      // to pause the player
+      if(state === 3) {
+        clearTimeout(delay);
+        delay = setTimeout(function(){
+          SPEEDREAD.play();
+        }, speedInMS);
+      }
     });
   },
 
   setSpeed : function() {
-
     // Make sure words per minute is greater than 0
     if($speedInput.val() < 1) {
-      $speedInput.val(1);
+      SPEEDREAD.config.speed = 1;
+    } else {
+      SPEEDREAD.config.speed = $speedInput.val();
     }
-    SPEEDREAD.config.speed = $speedInput.val();
 
     // Update Speed display
     $speedDisplay.html(SPEEDREAD.config.speed);
+  },
 
+  convertSpeedToMS : function(speed) {
+    // Convert speed to ms
+    speedInMS = (1 / ((speed / SPEEDREAD.config.chunkSize) / 60)) * 1000;
   },
 
   watchChunkSizeSetting : function(input) {
@@ -193,27 +233,23 @@ var SPEEDREAD = {
     // Set new Speed value
     input.on('input', function() {
       SPEEDREAD.setChunkSize();
+      SPEEDREAD.createWords($textInput);
     });
   },
 
   setChunkSize : function() {
 
-    // Update Speed display
     if($chunkSizeInput.val() < 1) {
-      $chunkSizeInput.val(1);
+      SPEEDREAD.config.chunkSize = 1;
+    } else {
+      SPEEDREAD.config.chunkSize = $chunkSizeInput.val();
     }
-    SPEEDREAD.config.chunkSize = $chunkSizeInput.val();
 
     if(SPEEDREAD.config.chunkSize === 1) {
       $chunkSizeDisplay.html(SPEEDREAD.config.chunkSize + ' word');
     } else {
       $chunkSizeDisplay.html(SPEEDREAD.config.chunkSize + ' words');
     }
-
-    SPEEDREAD.createWords($textInput);
-
-    // TODO: Add class on wordsDisplay to alter font size
-    // based on chunkSize
 
   },
 
@@ -242,7 +278,7 @@ var SPEEDREAD = {
     $wordDisplay.addClass(SPEEDREAD.config.font);
   },
 
-  displayWords : function() {
+  displayWords : function(speed) {
 
     // Show Word Display
     $wordDisplayContainer.removeClass('is-hidden');
@@ -250,10 +286,7 @@ var SPEEDREAD = {
     // Hide Input
     $textInputContainer.addClass('is-hidden');
 
-    console.log(SPEEDREAD.config.chunkSize);
-
-    // Convert speed to ms
-    var speedInMS = (1 / ((SPEEDREAD.config.speed / SPEEDREAD.config.chunkSize) / 60)) * 1000;
+    SPEEDREAD.convertSpeedToMS(SPEEDREAD.config.speed);
 
     var i = placeholder,
         j = words.length;
@@ -272,9 +305,6 @@ var SPEEDREAD = {
   },
 
   resetDisplayWords : function() {
-    isPlaying = false;
-
-    // TODO: Error when chunkSize is larger than words.length
     clearTimeout(interval);
     placeholder = 0;
     $playPauseButton.removeClass('icon-pause').addClass('icon-play');
@@ -285,7 +315,7 @@ var SPEEDREAD = {
     // Prevent display speed from increasing
     clearTimeout(interval);
     placeholder = 0;
-    isPlaying = false;
+    state = 0;
     $wordDisplayContainer.addClass('is-hidden');
     $wordDisplay.empty();
     $textInputContainer.removeClass('is-hidden');
@@ -294,14 +324,14 @@ var SPEEDREAD = {
 
   play : function() {
     $playPauseButton.removeClass('icon-play').addClass('icon-pause');
-    SPEEDREAD.displayWords();
-    isPlaying = true;
+    SPEEDREAD.displayWords(SPEEDREAD.config.speed);
+    state = 1;
   },
 
   pause : function() {
     $playPauseButton.removeClass('icon-pause').addClass('icon-play');
     clearTimeout(interval);
-    isPlaying = false;
+    state = 2;
   }
 
 };
