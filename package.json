@@ -1,12 +1,16 @@
 {
-  "name": "Spreedy",
+  "name": "SPEEDREAD",
   "version": "0.1.10",
   "author": "Kevin Weeks",
   "devDependencies": {
     "grunt": "~0.4.0",
+    "matchdep": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-sass": "*",
     "grunt-autoprefixer": "*",
-    "matchdep": "*"
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "~0.5.0"
   }
 }

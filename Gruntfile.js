@@ -6,8 +6,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    connect : {
+      server : {
+        options: {
+          port: 9001,
+          livereload : true
+        }
+      }
+    },
+
     sass: {
-      dev: {
+      dev : {
         files: {
           'css/app.css': 'css/sass/app.scss'
         }
@@ -26,20 +35,63 @@ module.exports = function(grunt) {
       }
     },
 
+    cssmin: {
+      minify: {
+        src: 'css/app.css',
+        dest: 'css/app.min.css'
+      }
+    },
+
+    concat : {
+      options : {
+        // Add a semicolon because minfication removes line breaks
+        separator: ';'
+      },
+      basic : {
+        src: [
+          'js/vendor/jquery-1.10.2.min.js',
+          'js/main.js'
+        ],
+        dest: 'js/main.min.js'
+      }
+    },
+
+    uglify : {
+      options: {
+        compress : true
+      },
+      my_target : {
+        files : {
+          'js/main.min.js' : 'js/main.min.js'
+        }
+      }
+    },
+
     watch: {
+      // Set up watch:dev and watch:dist
       sass: {
         files: [
           'css/sass/**/*.scss'
         ],
         tasks: [
           'sass:dev',
-          'autoprefixer'
+          'autoprefixer',
+          'cssmin'
         ],
+      },
+      js : {
+        files : [
+          'js/vendor/jquery-1.10.2.min.js',
+          'js/main.js'
+        ],
+        tasks : [
+          'concat'
+        ]
       },
       livereload: {
         files: [
           '*.html',
-          'js/**/*.{js,json}',
+          'js/main.min.js',
           'css/*.css',
           'img/**/*.{png,jpg,jpeg,gif,webp,svg}'
         ],
@@ -48,11 +100,23 @@ module.exports = function(grunt) {
         }
       }
     }
-
   });
 
-  grunt.registerTask('default', [
-    'watch'
-  ]);
+grunt.registerTask('dev', [
+  'connect',
+  'watch'
+]);
+
+grunt.registerTask('dist', [
+  'sass',
+  'autoprefixer',
+  'cssmin',
+  'concat',
+  'uglify'
+]);
+
+grunt.registerTask('default', [
+  'watch'
+]);
 
 };
