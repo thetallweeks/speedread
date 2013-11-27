@@ -151,8 +151,11 @@ var SPEEDREAD = {
     // the first match
     var re = new RegExp(pattern, 'g');
 
-    // Creates words array from input text
-    words = input.val().match(re);
+    // Replace line breaks with spaces
+    words = input.val().replace(/(\r\n+|\n+|\r+)/gm,' ');
+
+    // Split words array at every nth space
+    words = words.match(re);
 
   },
 
