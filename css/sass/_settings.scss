@@ -6,7 +6,6 @@ $progress-bar-height: .5rem;
   background-color: #ddd;
   height: $progress-bar-height;
   width: 100%;
-
   transition: width .1s;
 }
 
@@ -15,7 +14,6 @@ $progress-bar-height: .5rem;
   display: block;
   height: 100%;
   width: 0;
-
   transition: width .1s;
 }
 
@@ -178,5 +176,9 @@ $progress-bar-height: .5rem;
   .app-details {
     height: $app-details-height * 1.25;
     line-height: $app-details-height * 1.25;
+  }
+
+  .progress-bar-container {
+    height: $progress-bar-height * 1.25;
   }
 }

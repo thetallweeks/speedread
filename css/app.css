@@ -939,6 +939,10 @@ table {
     height: 3.125rem;
     line-height: 3.125rem;
   }
+
+  .progress-bar-container {
+    height: 0.625rem;
+  }
 }
 
 .text-input-container {
