@@ -1,5 +1,23 @@
 $app-controls-height: 6rem;
-$app-details-height: 3rem;
+$app-details-height: 2.5rem;
+$progress-bar-height: .5rem;
+
+.progress-bar-container {
+  background-color: #ddd;
+  height: $progress-bar-height;
+  width: 100%;
+
+  transition: width .1s;
+}
+
+.progress-bar {
+  background-color: #bdbdbd;
+  display: block;
+  height: 100%;
+  width: 0;
+
+  transition: width .1s;
+}
 
 .app-controls {
     background: linear-gradient(to bottom, #202020 0%,#111 100%);

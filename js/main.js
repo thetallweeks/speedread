@@ -76,6 +76,9 @@ var SPEEDREAD = {
     $fontSettings = $('#speedReadFontSettings');
     $fontSettingsMenu = $('#speedReadFontSettingsMenu');
 
+    // Progress Bar
+    $progressBar = $('#speedReadProgressBar');
+
   },
 
   bindUI : function() {
@@ -299,8 +302,10 @@ var SPEEDREAD = {
       i++;
       if (i === j) {
         SPEEDREAD.resetDisplayWords();
+        $progressBar.width('100%');
       } else if (i < j) {
         placeholder++;
+        SPEEDREAD.progressBar(placeholder, j);
         interval = setTimeout(timer,speedInMS);
       }
     })();
@@ -323,6 +328,7 @@ var SPEEDREAD = {
     $wordDisplay.empty();
     $textInputContainer.removeClass('is-hidden');
     $playPauseButton.removeClass('icon-pause').addClass('icon-play');
+    $progressBar.width(0);
   },
 
   play : function() {
@@ -335,6 +341,11 @@ var SPEEDREAD = {
     $playPauseButton.removeClass('icon-pause').addClass('icon-play');
     clearTimeout(interval);
     state = 2;
+  },
+
+  progressBar : function(currentPosition, totalItems) {
+    var progressPercentage = (currentPosition / totalItems) * 100;
+    $progressBar.width(progressPercentage + '%');
   }
 
 };
