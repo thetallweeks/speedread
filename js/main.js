@@ -109,12 +109,12 @@ var SPEEDREAD = {
     });
 
     // Bind click for Speed Settings
-    $popupButtons.click(function() {
-      SPEEDREAD.popup();
+    $popupButtons.click(function(e) {
+      SPEEDREAD.popup(e);
     });
 
-    $popupMenus.click(function() {
-      event.stopPropagation();
+    $popupMenus.click(function(e) {
+      e.stopPropagation();
     });
 
   },
@@ -172,11 +172,11 @@ var SPEEDREAD = {
 
   },
 
-  popup : function() {
+  popup : function(e) {
+    e = e || window.event;
+    e.stopPropagation();
 
-    event.stopPropagation();
-
-    var target = $(event.target);
+    var target = $(e.target);
 
     if(target.hasClass('is-active')) {
       target.removeClass('is-active');
@@ -259,16 +259,16 @@ var SPEEDREAD = {
 
   },
 
-  chooseFont : function() {
+  chooseFont : function(e) {
     SPEEDREAD.setFont();
-    $fontSettingsMenu.find('.font-option').click(function() {
+    $fontSettingsMenu.find('.font-option').click(function(e) {
       $fontSettingsMenu.find('.font-option').removeClass('is-active');
 
       // Don't create a jQuery object here
-      SPEEDREAD.config.font = event.target.id;
+      SPEEDREAD.config.font = e.target.id;
 
       // Use the jQuery object form of event.target to addClass
-      $(event.target).addClass('is-active');
+      $(e.target).addClass('is-active');
       SPEEDREAD.removeFontClass();
       SPEEDREAD.setFont();
     });
