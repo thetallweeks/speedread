@@ -893,12 +893,29 @@ table {
 }
 
 .app-controls-menu-input {
+  background-color: #222;
+  border: 1px solid #292929;
+  color: #fff;
   float: right;
   font-family: Arial;
-  font-size: 1.5;
+  font-size: 1.5rem;
   line-height: 1.4;
   margin-left: .5rem;
   max-width: 5.5rem;
+  padding: .1em .3em;
+}
+
+.app-controls-menu-input::-webkit-outer-spin-button,
+.app-controls-menu-input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.app-controls-menu-input:focus {
+  border-color: #434343;
+  outline: none;
 }
 
 .font-option {
@@ -950,8 +967,9 @@ table {
 }
 
 .text-input {
+  background-color: #fdfcf4;
   border: none;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 1.35;
   padding: 1.5rem;
   resize: none;
@@ -967,8 +985,9 @@ table {
 }
 
 .word-display {
+  background-color: #fdfcf4;
   display: table-cell;
-  font-size: 3.8rem;
+  font-size: 2.5rem;
   text-align: center;
   vertical-align: middle;
   word-wrap: break-word;
@@ -976,25 +995,25 @@ table {
 
 @media screen and (min-width: 20em) {
   .word-display {
-    font-size: 4.5rem;
+    font-size: 3rem;
   }
 }
 
 @media screen and (min-width: 30em) {
   .word-display {
-    font-size: 5.5rem;
+    font-size: 3.5rem;
   }
 }
 
 @media screen and (min-width: 37.5em) {
   .word-display {
-    font-size: 6.5rem;
+    font-size: 4rem;
   }
 }
 
 @media screen and (min-width: 45em) {
   .word-display {
-    font-size: 8rem;
+    font-size: 4.5rem;
   }
 }
 

@@ -6,10 +6,10 @@ var SPEEDREAD = {
     font: "lora",
 
     // Sets default words per minute
-    speed : 400,
+    speed : 300,
 
     // Set default words at a time
-    chunkSize : 3
+    chunkSize : 1
 
   },
 
