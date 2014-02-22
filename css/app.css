@@ -746,23 +746,6 @@ table {
   content: "\e602";
 }
 
-.progress-bar-container {
-  background-color: #ddd;
-  height: 0.5rem;
-  width: 100%;
-  -webkit-transition: width .1s;
-  transition: width .1s;
-}
-
-.progress-bar {
-  background-color: #bdbdbd;
-  display: block;
-  height: 100%;
-  width: 0;
-  -webkit-transition: width .1s;
-  transition: width .1s;
-}
-
 .app-controls {
   background: -webkit-linear-gradient(top, #202020 0%, #111111 100%);
   background: linear-gradient(to bottom, #202020 0%, #111111 100%);
@@ -1015,6 +998,23 @@ table {
   .word-display {
     font-size: 4.5rem;
   }
+}
+
+.progress-bar-container {
+  background-color: rgba(0, 0, 0, 0.15);
+  height: 0.5rem;
+  width: 100%;
+  -webkit-transition: width .1s;
+  transition: width .1s;
+}
+
+.progress-bar {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  height: 100%;
+  width: 0;
+  -webkit-transition: width .1s;
+  transition: width .1s;
 }
 
 .is-hidden {

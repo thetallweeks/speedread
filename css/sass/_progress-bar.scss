@@ -1,0 +1,14 @@
+.progress-bar-container {
+  background-color: rgba(0,0,0,.15);
+  height: $progress-bar-height;
+  width: 100%;
+  transition: width .1s;
+}
+
+.progress-bar {
+  background-color: rgba(0,0,0,.1);
+  display: block;
+  height: 100%;
+  width: 0;
+  transition: width .1s;
+}
