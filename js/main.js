@@ -146,7 +146,7 @@ var SPEEDREAD = {
 
   createWords : function(input) {
 
-    // Create teh pattern using the chunkSize value
+    // Create the pattern using the chunkSize value
     var pattern = '[^ ]+( +[^ ]+){0,' + (SPEEDREAD.config.chunkSize - 1) + '}';
 
     // We need to create a RegEx object to be able to use the
@@ -155,7 +155,11 @@ var SPEEDREAD = {
     var re = new RegExp(pattern, 'g');
 
     // Replace line breaks with spaces
-    words = input.val().replace(/(\r\n+|\n+|\r+)/gm,' ');
+    // Replace < with &lt;
+    // Replace > with &gt;
+    words = input.val().replace(/(\r\n+|\n+|\r+)/gm,' ')
+                       .replace(/</g,'&lt;')
+                       .replace(/>/g,'&gt;');
 
     // Split words array at every nth space
     words = words.match(re);
