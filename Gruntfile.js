@@ -85,7 +85,8 @@ module.exports = function(grunt) {
           'js/main.js'
         ],
         tasks : [
-          'concat'
+          'concat',
+          'uglify'
         ]
       },
       livereload: {
